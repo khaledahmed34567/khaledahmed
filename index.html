@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khaled Ahmed</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#000;--s:#111;--s2:#1a1a1a;--b:rgba(255,255,255,.1);--t:#f4f4f4;--t2:#a8a8a8;--t3:#666;--a:#7c5cff;--g:#42be65}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--t);font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;min-height:100vh;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.bgfx{position:fixed;inset:0;z-index:-1;background:radial-gradient(circle at 20% 10%,rgba(124,92,255,.22),transparent 45%),radial-gradient(circle at 85% 80%,rgba(66,190,101,.12),transparent 40%);background-size:140% 140%;animation:drift 14s ease-in-out infinite alternate}
+@keyframes drift{to{background-position:100% 100%}}
+header{position:sticky;top:0;z-index:20;background:rgba(0,0,0,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--b);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px}
+.brand img{height:34px;filter:brightness(0) invert(1);pointer-events:none;-webkit-user-drag:none;user-select:none}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav a{padding:7px 12px;border-radius:8px;font-size:13px;color:var(--t2);transition:.2s}
+nav a:hover,nav a.on{background:rgba(124,92,255,.15);color:#fff}
+.in{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--b);padding:7px 12px;border-radius:8px;font-size:13px}
+.in:hover{border-color:var(--a)}
+.ticker{overflow:hidden;border-bottom:1px solid var(--b);background:var(--s);direction:ltr;white-space:nowrap}
+.ticker-in{display:inline-block;padding:9px 0;animation:mq 40s linear infinite}
+.ticker:hover .ticker-in{animation-play-state:paused}
+.ticker-in span{display:inline-block;padding:0 34px;font-size:13px;color:var(--t2);direction:rtl}
+.ticker-in span:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--a);margin-left:10px;animation:pulse 1.4s infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
+@keyframes pulse{50%{opacity:.25;transform:scale(.6)}}
+main{max-width:980px;margin:0 auto;padding:26px 16px 60px;animation:fadeup .5s both}
+@keyframes fadeup{from{opacity:0;transform:translateY(18px)}}
+.hero{text-align:center;padding:56px 10px 40px}
+.hero h1{font-size:clamp(34px,9vw,64px);font-weight:700;line-height:1.1;background:linear-gradient(90deg,#fff,#7c5cff,#fff);background-size:200%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s linear infinite}
+@keyframes shine{to{background-position:200%}}
+.hero p{color:var(--t2);max-width:520px;margin:16px auto 26px;line-height:1.8;font-weight:300}
+.btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn{padding:12px 22px;border-radius:10px;border:1px solid var(--b);background:var(--s2);color:var(--t);font:500 14px inherit;font-family:inherit;cursor:pointer;transition:.2s}
+.btn:hover{transform:translateY(-3px);border-color:var(--a);box-shadow:0 8px 24px rgba(124,92,255,.25)}
+.btn.p{background:var(--a);border-color:var(--a);color:#fff}
+h2.sec{font-size:19px;margin:34px 0 14px;display:flex;justify-content:space-between;align-items:center}
+h2.sec a{font-size:12px;color:var(--a);font-weight:400}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{background:var(--s);border:1px solid var(--b);border-radius:14px;overflow:hidden;transition:.3s;display:block}
+.card:hover{transform:translateY(-6px);border-color:var(--a);box-shadow:0 14px 34px rgba(124,92,255,.2)}
+.card img{width:100%;height:150px;object-fit:cover;display:block;transition:.5s}
+.card:hover img{transform:scale(1.06)}
+.cimg{overflow:hidden}
+.cb{padding:14px}
+.tag{font-size:11px;color:var(--a);margin-bottom:6px}
+.card h3{font-size:15px;margin-bottom:6px;line-height:1.5}
+.card p{font-size:12.5px;color:var(--t2);line-height:1.7}
+.date{font-size:11px;color:var(--t3);margin-top:8px}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .6s,transform .6s}
+.rv.show{opacity:1;transform:none}
+.art h1{font-size:28px;line-height:1.4;margin-bottom:10px}
+.art .cover{width:100%;max-height:380px;object-fit:cover;border-radius:14px;margin:14px 0}
+.art .body p{line-height:2;margin-bottom:12px;color:#ddd}
+.art .body img{max-width:100%;border-radius:12px;margin:10px 0}
+.share{display:flex;gap:8px;margin:14px 0;flex-wrap:wrap}
+.empty{color:var(--t3);padding:30px;text-align:center;border:1px dashed var(--b);border-radius:12px}
+.chips{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:10px 0 18px}
+.chip{padding:12px;border:1px solid var(--b);border-radius:10px;text-align:center;font-size:13px;color:var(--t2);cursor:pointer;background:var(--s);transition:.2s}
+.chip.on{background:rgba(124,92,255,.18);border-color:var(--a);color:#fff}
+.step{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:16px;margin-bottom:12px}
+.step h3{font-size:15px;margin-bottom:8px;display:flex;gap:10px;align-items:center}
+.step h3 i{font-style:normal;width:26px;height:26px;border-radius:50%;background:var(--a);display:inline-flex;align-items:center;justify-content:center;font:500 12px 'IBM Plex Mono'}
+.step p{font-size:13px;color:var(--t2);line-height:1.9;margin-bottom:10px}
+.cmd{direction:ltr;text-align:left;background:#000;border:1px solid var(--b);border-radius:10px;padding:12px;font:12.5px/1.6 'IBM Plex Mono',monospace;color:#c9d1d9;word-break:break-all;display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
+.cmd button{background:var(--s2);border:1px solid var(--b);color:var(--t2);border-radius:6px;padding:4px 10px;cursor:pointer;font-family:inherit;font-size:11px;flex-shrink:0}
+.note{font-size:12px;color:#d4a050;background:rgba(241,194,27,.08);border:1px solid rgba(241,194,27,.2);border-radius:10px;padding:9px 12px;margin-top:10px;line-height:1.7}
+footer{border-top:1px solid var(--b);padding:20px;text-align:center;font-size:12px;color:var(--t3)}
+
+:root{--bg:#000;--s:#161616;--s2:#1e1e1e;--s3:#242424;--b:rgba(255,255,255,.12);--a:#7c5cff}
+body{background:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(255,255,255,.06),transparent 70%),#000}
+.bgfx{background:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000 25%,transparent 80%);mask-image:radial-gradient(ellipse 80% 70% at 50% 30%,#000 25%,transparent 80%);animation:gridmove 20s linear infinite}
+@keyframes gridmove{to{background-position:48px 48px}}
+header{background:rgba(10,10,10,.45);backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%)}
+.brand img{height:58px}
+.card,.step,.chip,.cmd,.acard,.pf{background:rgba(255,255,255,.045);backdrop-filter:blur(16px) saturate(150%);-webkit-backdrop-filter:blur(16px) saturate(150%);border:1px solid rgba(255,255,255,.13);box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 10px 30px rgba(0,0,0,.35)}
+.chip.on{background:rgba(124,92,255,.22)}
+.btn{background:rgba(255,255,255,.07);backdrop-filter:blur(10px)}
+.btn.p{background:rgba(124,92,255,.85)}
+.herologo{height:clamp(110px,30vw,190px);filter:brightness(0) invert(1);animation:flt 4s ease-in-out infinite;pointer-events:none;-webkit-user-drag:none;user-select:none}
+@keyframes flt{50%{transform:translateY(-10px)}}
+.menu{background:rgba(255,255,255,.07);border:1px solid var(--b);color:#fff;border-radius:10px;width:42px;height:42px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s}
+.menu:hover{border-color:var(--a);transform:scale(1.06)}
+.drawer{position:fixed;top:0;right:0;height:100%;width:270px;transform:translateX(105%);transition:transform .45s cubic-bezier(.2,.8,.2,1);z-index:60;flex-direction:column;flex-wrap:nowrap;gap:6px;padding:76px 14px 20px;background:rgba(14,14,14,.55);backdrop-filter:blur(24px) saturate(170%);-webkit-backdrop-filter:blur(24px) saturate(170%);border-left:1px solid var(--b)}
+.drawer.open{transform:none}
+.drawer a,.drawer button{padding:13px 14px;font-size:14px;text-align:right;border-radius:10px;border:0;background:transparent;color:var(--t2);font-family:inherit;cursor:pointer}
+.drawer a:hover,.drawer a.on,.drawer button:hover{background:rgba(124,92,255,.18);color:#fff}
+.scrim{position:fixed;inset:0;z-index:55;background:rgba(0,0,0,.5);backdrop-filter:blur(3px);display:none}
+.scrim.open{display:block;animation:fadeup .3s both}
+#auth{position:fixed;inset:0;z-index:100;background:#000;display:flex;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
+.acard{width:100%;max-width:430px;margin:auto 0;border-radius:18px;padding:24px;animation:fadeup .6s both}
+.alogo{display:block;margin:0 auto 18px;height:96px;filter:brightness(0) invert(1);pointer-events:none;user-select:none;-webkit-user-drag:none}
+.tabs{display:flex;background:rgba(0,0,0,.4);border:1px solid var(--b);border-radius:10px;padding:3px;margin-bottom:16px}
+.tabs button{flex:1;padding:9px;border:0;background:transparent;color:var(--t3);font-family:inherit;font-size:13px;border-radius:8px;cursor:pointer;transition:.2s}
+.tabs button.on{background:rgba(124,92,255,.2);color:var(--a)}
+.gbtn{width:100%;padding:11px;border-radius:10px;border:1px solid var(--b);background:rgba(255,255,255,.07);color:#fff;font-family:inherit;font-size:14px;cursor:pointer;margin-bottom:14px;transition:.2s}
+.gbtn:hover{border-color:var(--a)}
+.or{text-align:center;font-size:12px;color:var(--t3);margin-bottom:12px}
+.acard input,.pf input,.pf textarea{width:100%;padding:10px 12px;margin-bottom:10px;background:rgba(0,0,0,.45);border:1px solid var(--b);border-radius:10px;color:#fff;font-family:inherit;font-size:13px;outline:none;transition:.2s}
+.acard input:focus,.pf input:focus,.pf textarea:focus{border-color:var(--a);box-shadow:0 0 0 3px rgba(124,92,255,.18)}
+.acard label,.pf label{display:block;font-size:12px;color:var(--t2);margin:2px 0 5px}
+.two2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px}
+.dc{padding:9px;border:1px solid var(--b);border-radius:8px;font-size:11.5px;color:var(--t2);cursor:pointer;text-align:center;transition:.2s;user-select:none}
+.dc.on{background:rgba(124,92,255,.2);border-color:var(--a);color:#fff}
+.amsg{margin-top:10px;padding:9px 12px;border-radius:10px;font-size:12.5px;line-height:1.7;display:none}
+.amsg.ok{display:block;background:rgba(66,190,101,.1);color:#42be65}.amsg.er{display:block;background:rgba(250,77,86,.1);color:#fa4d56}.amsg.in{display:block;background:rgba(120,169,255,.1);color:#78a9ff}
+.pf{border-radius:18px;padding:22px;max-width:520px;margin:0 auto}
+.av{width:84px;height:84px;border-radius:50%;margin:0 auto 12px;background:rgba(124,92,255,.25);border:1px solid var(--a);display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700;overflow:hidden;animation:flt 5s ease-in-out infinite}
+.av img{width:100%;height:100%;object-fit:cover}
+.pm{text-align:center;color:var(--t2);font-size:12px;line-height:2;margin-bottom:16px}
+@media(max-width:420px){.two2{grid-template-columns:1fr}}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+
+::selection{background:#7c5cff;color:#fff}::-moz-selection{background:#7c5cff;color:#fff}
+h1,h2,h3,.tabs button,.btn,.chip,.drawer a,.drawer button,.dc,.gbtn,.vis,.fwt{font-family:'Kufam','IBM Plex Sans Arabic',sans-serif}
+.lg{background:url(https://i.ibb.co/TJ2T61B/logo.png) center/contain no-repeat;filter:brightness(0) invert(1);pointer-events:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.brand .lg{height:58px;width:140px}.alogo.lg{width:210px}.herologo.lg{width:clamp(210px,62vw,380px);margin:0 auto 6px}
+.lnk{color:#a99bff;text-decoration:underline;word-break:break-all}
+.fgt{display:block;text-align:center;margin-top:12px;padding:10px;border:1px dashed var(--b);border-radius:10px;font-size:13px;color:#a99bff}
+#cmp{position:fixed;inset:0;z-index:120;background:#000;display:none;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
+.vis{margin-top:22px;font-size:14px;color:var(--t2)}.vis b{color:#fff;font-size:22px;margin:0 6px;font-family:'IBM Plex Mono',monospace}
+footer .fl{margin-bottom:12px}footer>div{margin-bottom:6px}footer b{color:#fff}
+#fw{position:fixed;left:14px;bottom:14px;z-index:70;width:290px;max-width:calc(100% - 28px);padding:16px;border-radius:16px;background:rgba(20,20,20,.5);backdrop-filter:blur(22px) saturate(170%);-webkit-backdrop-filter:blur(22px) saturate(170%);border:1px solid rgba(255,255,255,.15);box-shadow:0 14px 40px rgba(0,0,0,.5);transform:translateY(160%);transition:transform .6s cubic-bezier(.2,.9,.2,1)}
+#fw.show{transform:none}#fw p{font-size:13px;color:var(--t2);line-height:1.8;margin:6px 0 12px}
+#fw .x{position:absolute;top:8px;left:10px;background:none;border:0;color:var(--t3);cursor:pointer;font-size:16px}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Kufam:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="auth"><div class="acard">
+<div class="lg alogo"></div>
+<div class="tabs"><button id="tl" class="on" onclick="switchTab('login')">تسجيل الدخول</button><button id="tr" onclick="switchTab('register')">إنشاء حساب</button></div>
+<button class="gbtn" onclick="signInGoogle()">متابعة مع Google</button>
+<div class="or">أو بالبريد الإلكتروني</div>
+<div id="fl"><label>البريد الإلكتروني</label><input type="email" id="le" dir="ltr"><label>كلمة المرور</label><input type="password" id="lp" dir="ltr">
+<a href="#" class="fgt" onclick="forgot();return false">نسيت كلمة المرور؟ اضغط هنا</a>
+<div class="row" style="margin-top:12px"><button class="btn p" style="width:100%" onclick="doLogin()">دخول</button></div></div>
+<div id="fr" style="display:none"><div class="two2"><div><label>الاسم الكامل</label><input id="rn"></div><div><label>اسم المستخدم</label><input id="ru" dir="ltr"></div></div>
+<label>البريد الإلكتروني</label><input type="email" id="re" dir="ltr"><label>رقم الهاتف</label><input type="tel" id="rph" dir="ltr">
+<div class="two2"><div><label>كلمة المرور</label><input type="password" id="rp" dir="ltr"></div><div><label>تأكيد كلمة المرور</label><input type="password" id="rp2" dir="ltr"></div></div>
+<label>مجال الاستفادة</label><div class="dg" id="dgrid"></div>
+<button class="btn p" style="width:100%" onclick="doRegister()">إنشاء الحساب</button></div>
+<div class="amsg" id="amsg"></div>
+<button class="btn" id="resend" style="display:none;width:100%;margin-top:10px" onclick="resendV()">إعادة إرسال رابط التفعيل</button>
+</div></div>
+<div class="scrim" id="scrim" onclick="toggleMenu()"></div>
+<div id="cmp"><div class="acard"><div class="lg alogo"></div><h3 style="text-align:center;margin-bottom:6px">أكمل بياناتك للمتابعة</h3><p style="text-align:center;font-size:12.5px;color:var(--t2);margin-bottom:14px;line-height:1.8">هذه البيانات مطلوبة قبل دخول المنصة.</p>
+<label>الاسم الكامل</label><input id="cn"><label>اسم المستخدم</label><input id="cu" dir="ltr"><label>رقم الهاتف</label><input id="cph" type="tel" dir="ltr">
+<label>مجال الاستفادة</label><div class="dg" id="cdg"></div><div class="amsg" id="cmsg"></div>
+<button class="btn p" style="width:100%" onclick="saveComplete()">حفظ والمتابعة</button></div></div>
+<div id="fw"><button class="x" onclick="closeFw()" aria-label="إغلاق">x</button><div class="fwt" style="font-size:15px;font-weight:600">تابعني على LinkedIn</div><p>تابع جديد المقالات والمشاريع والأخبار على حسابي في LinkedIn.</p><a class="btn p" style="display:block;text-align:center" href="https://www.linkedin.com/in/khaled-ahmed-241002386" target="_blank" rel="noopener" onclick="closeFw()">متابعة الآن</a></div>
+<div class="bgfx"></div>
+<header>
+  <a class="brand" href="#/"><div class="lg"></div></a>
+  <button class="menu" onclick="toggleMenu()" aria-label="القائمة"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg></button>
+  <nav id="nav" class="drawer" onclick="if(event.target.tagName==='A')toggleMenu()">
+    <a href="#/" data-r="home">الرئيسية</a>
+    <a href="#/blog" data-r="blog">المدونة</a>
+    <a href="#/projects" data-r="projects">المشاريع</a>
+    <a href="#/news" data-r="news">الأخبار</a>
+    <a href="#/setup" data-r="setup">ضبط الذكاء الاصطناعي</a>
+    <a href="#/profile" data-r="profile">الملف الشخصي</a>
+    <button onclick="doSignOut()">تسجيل الخروج</button>
+  </nav>
+  <a class="in" href="https://www.linkedin.com/in/khaled-ahmed-241002386" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/></svg>LinkedIn</a>
+</header>
+<div class="ticker" id="ticker" style="display:none"><div class="ticker-in" id="ticker-in"></div></div>
+<main id="view"></main>
+<footer><div class="fl"><a class="in" href="https://www.linkedin.com/in/khaled-ahmed-241002386" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/></svg>تابعني على LinkedIn</a></div><div>عدد الزوار: <b class="vcn">0</b></div><div>جميع الحقوق محفوظة</div></footer>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+import {getFirestore,collection,getDocs,query,orderBy,doc,setDoc,getDoc,updateDoc,increment} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,GoogleAuthProvider,signInWithPopup,sendEmailVerification,sendPasswordResetEmail,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+var app=initializeApp({apiKey:"AIzaSyCTGnFOK7m_xNod8mwBPB5HTgTP2BrNm6o",authDomain:"cyberintel-d0d4f.firebaseapp.com",projectId:"cyberintel-d0d4f",storageBucket:"cyberintel-d0d4f.firebasestorage.app",messagingSenderId:"533279564815",appId:"1:533279564815:web:d373567c2be86311127af7a"});
+var db=getFirestore(app),auth=getAuth(app),ITEMS=[],LOADED=false,started=false;
+var TYPES={post:'المدونة',project:'المشاريع',news:'الأخبار'};
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
+function fdate(s){try{return new Date(s).toLocaleDateString('ar-EG')}catch(e){return ''}}
+function ftime(s){try{return new Date(s).toLocaleString('ar-EG',{dateStyle:'medium',timeStyle:'short'})}catch(e){return fdate(s)}}
+function mkA(u,t){var a=el('a','lnk',t);a.href=/^https?:\/\//i.test(u)?u:'#';a.target='_blank';a.rel='noopener noreferrer';return a}
+function lk(t,n){n=n||el('p');t=String(t||'');var re=/(https?:\/\/[^\s<>"']+)/g,last=0,m;while((m=re.exec(t))){if(m.index>last)n.appendChild(document.createTextNode(t.slice(last,m.index)));n.appendChild(mkA(m[1],m[1]));last=re.lastIndex}if(last<t.length)n.appendChild(document.createTextNode(t.slice(last)));return n}
+function ofType(t){return ITEMS.filter(function(i){return i.type===t})}
+
+async function load(){
+  try{
+    var snap=await getDocs(query(collection(db,'khcontent'),orderBy('createdAt','desc')));
+    ITEMS=snap.docs.map(function(d){var o=d.data();o.id=d.id;return o});
+  }catch(e){console.error(e)}
+  LOADED=true;buildTicker();route();
+}
+function buildTicker(){
+  var n=ofType('news').slice(0,10);
+  if(!n.length){document.getElementById('ticker').style.display='none';return}
+  var h='';
+  for(var k=0;k<2;k++){n.forEach(function(i){h+='<span>'+i.title.replace(/[<>&]/g,'')+'</span>'})}
+  document.getElementById('ticker-in').innerHTML=h;
+  document.getElementById('ticker').style.display='block';
+}
+function card(i){
+  var a=el('a','card rv');a.href='#/item/'+i.id;
+  if(i.cover){var w=el('div','cimg'),im=el('img');im.src=i.cover;im.alt='';im.loading='lazy';w.appendChild(im);a.appendChild(w)}
+  var b=el('div','cb');b.appendChild(el('div','tag',TYPES[i.type]||''));b.appendChild(el('h3',null,i.title));
+  if(i.summary)b.appendChild(el('p',null,i.summary));
+  b.appendChild(el('div','date',ftime(i.createdAt)));a.appendChild(b);return a;
+}
+function section(v,title,type,limit,more){
+  var list=ofType(type).slice(0,limit);
+  var h=el('h2','sec rv');h.appendChild(el('span',null,title));
+  if(more){var m=el('a',null,'عرض الكل');m.href='#/'+more;h.appendChild(m)}
+  v.appendChild(h);
+  var g=el('div','grid');
+  if(!list.length){g.appendChild(el('div','empty','لا يوجد محتوى بعد'))}
+  list.forEach(function(i){g.appendChild(card(i))});
+  v.appendChild(g);
+}
+function link(txt,href,cls){var a=el('a','btn '+(cls||''),txt);a.href=href;return a}
+
+function renderHome(v){
+  var h=el('div','hero');
+  h.appendChild(el('div','lg herologo'));
+  h.appendChild(el('p',null,'مدونة ومشاريع وأخبار، مع دليل مفصل لضبط أدوات الذكاء الاصطناعي على الهاتف والكمبيوتر.'));
+  var b=el('div','btns');b.appendChild(link('المدونة','#/blog','p'));b.appendChild(link('ضبط الذكاء الاصطناعي','#/setup'));b.appendChild(link('المشاريع','#/projects'));
+  var vz=el('div','vis');vz.appendChild(document.createTextNode('عدد الزوار'));vz.appendChild(el('b','vcn','0'));h.appendChild(b);h.appendChild(vz);v.appendChild(h);paintVis();
+  section(v,'آخر الأخبار','news',3,'news');
+  section(v,'آخر المشاريع','project',3,'projects');
+  section(v,'آخر المقالات','post',3,'blog');
+}
+function renderList(v,title,type){
+  v.appendChild(el('h2','sec',title));
+  var list=ofType(type),g=el('div','grid');
+  if(!list.length)g.appendChild(el('div','empty','لا يوجد محتوى بعد'));
+  list.forEach(function(i){g.appendChild(card(i))});v.appendChild(g);
+}
+function renderBody(box,raw){
+  var data=null;try{data=JSON.parse(raw)}catch(e){}
+  if(!Array.isArray(data)){
+    String(raw||'').split(/\n\s*\n/).forEach(function(t){if(t.trim())box.appendChild(lk(t.trim()))});return;
+  }
+  data.forEach(function(b){
+    if(typeof b==='string'){box.appendChild(lk(b));return}
+    if(b.img){var im=el('img');im.src=b.img;im.alt='';im.loading='lazy';box.appendChild(im);return}
+    var p=el(b.h?'h2':'p');if(b.link){p.appendChild(mkA(b.link,b.text||b.link))}else lk(b.text||'',p);
+    if(b.color)p.style.color=b.color;
+    if(b.bold)p.style.fontWeight='700';
+    if(b.size)p.style.fontSize=b.size+'px';
+    if(b.align)p.style.textAlign=b.align;
+    box.appendChild(p);
+  });
+}
+function shareUrl(id){return location.origin+location.pathname+'#/item/'+id}
+function renderItem(v,id){
+  var it=ITEMS.filter(function(x){return x.id===id})[0];
+  if(!it){v.appendChild(el('div','empty','المحتوى غير موجود'));return}
+  document.title=it.title+' - Khaled Ahmed';
+  var a=el('div','art');a.appendChild(el('div','tag',TYPES[it.type]||''));a.appendChild(el('h1',null,it.title));
+  a.appendChild(el('div','date',ftime(it.createdAt)));
+  var sh=el('div','share');
+  var cp=el('button','btn','نسخ الرابط');cp.onclick=function(){navigator.clipboard.writeText(shareUrl(id)).then(function(){cp.textContent='تم النسخ'})};
+  sh.appendChild(cp);
+  if(navigator.share){var s=el('button','btn p','مشاركة');s.onclick=function(){navigator.share({title:it.title,url:shareUrl(id)})};sh.appendChild(s)}
+  var wa=el('a','btn','واتساب');wa.target='_blank';wa.href='https://wa.me/?text='+encodeURIComponent(it.title+' '+shareUrl(id));sh.appendChild(wa);
+  a.appendChild(sh);
+  if(it.cover){var c=el('img','cover');c.src=it.cover;c.alt='';a.appendChild(c)}
+  if(it.summary)a.appendChild(lk(it.summary));
+  var body=el('div','body');renderBody(body,it.body);a.appendChild(body);
+  if(it.link){var l=el('a','btn p','فتح الرابط');l.href=it.link;l.target='_blank';l.rel='noopener';a.appendChild(l)}
+  v.appendChild(a);
+}
+
+/* ---------- Setup guide ---------- */
+var DEV={android:'أندرويد (Termux)',ios:'آيفون (iSH)',windows:'ويندوز',linux:'لينكس'};
+var TOOLS={omni:'OmniRoute',hum:'Humanizer',both:'الاثنان معًا'};
+var gDev='android',gTool='omni';
+function base(d){
+  var S={
+  android:[
+   {t:'تثبيت Termux',d:'حمّل Termux من F-Droid وليس من Google Play. افتح الرابط، نزّل ملف APK واسمح للمتصفح بتثبيت التطبيقات من مصادر خارجية عند السؤال. بعد التثبيت افتح Termux وانتظر حتى ينتهي إعداده الأول.',l:'https://f-droid.org/packages/com.termux/'},
+   {t:'تحديث الحزم',d:'نحدّث قاعدة بيانات الحزم. لو سألك Termux عن استبدال ملف إعداد اكتب Y ثم Enter.',c:'pkg update -y && pkg upgrade -y'},
+   {t:'تثبيت Node.js وgit وcurl',d:'هذه أدوات أساسية لكل ما بعدها. الحجم تقريبًا 80 ميجابايت فتأكد من اتصال جيد.',c:'pkg install -y nodejs git curl'},
+   {t:'التحقق من التثبيت',d:'يجب أن يظهر رقما إصدار للأمرين.',c:'node -v && npm -v'}],
+  ios:[
+   {t:'تثبيت iSH',d:'iOS لا يدعم Termux، لذلك نستخدم iSH، وهو تطبيق مجاني رسمي على App Store يشغّل Alpine Linux. افتحه بعد التثبيت وانتظر ظهور الطرفية.',l:'https://apps.apple.com/app/ish-shell/id1436902243'},
+   {t:'تحديث الحزم',d:'iSH يحاكي معمارية x86 فالأوامر أبطأ من المعتاد. هذا طبيعي، لا تغلق التطبيق.',c:'apk update && apk upgrade'},
+   {t:'تثبيت Node.js وgit وcurl',d:'قد يستغرق بضع دقائق بسبب المحاكاة.',c:'apk add nodejs npm git curl'},
+   {t:'التحقق من التثبيت',d:'يجب أن يظهر رقما إصدار.',c:'node -v && npm -v'}],
+  windows:[
+   {t:'تثبيت Node.js',d:'حمّل نسخة LTS بصيغة Windows Installer (.msi) وشغّله واضغط Next حتى النهاية، وأبقِ خيار Add to PATH مفعّلًا. أعد تشغيل الجهاز لو طلب المعالج ذلك.',l:'https://nodejs.org/en/download'},
+   {t:'تثبيت Git',d:'مطلوب لسحب بعض الإضافات. ثبّته بالإعدادات الافتراضية.',l:'https://git-scm.com/download/win'},
+   {t:'فتح PowerShell والتحقق',d:'اضغط مفتاح Windows، اكتب PowerShell واضغط Enter، ثم شغّل الأمر. لو ظهرت رسالة not recognized أعد تشغيل الجهاز.',c:'node -v; npm -v; git --version'}],
+  linux:[
+   {t:'تحديث النظام',d:'الأوامر لتوزيعات Debian وUbuntu. سيطلب كلمة مرور المستخدم ولن تظهر أثناء الكتابة، وهذا طبيعي.',c:'sudo apt update && sudo apt upgrade -y'},
+   {t:'تثبيت Node.js وgit وcurl',d:'نستخدم مستودع NodeSource للحصول على إصدار LTS حديث بدل نسخة apt القديمة.',c:'curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - && sudo apt install -y nodejs git curl'},
+   {t:'التحقق من التثبيت',d:'يجب أن يظهر رقما إصدار.',c:'node -v && npm -v'}]};
+  return S[d];
+}
+function omniSteps(d){
+  var sudo=d==='linux'?'sudo ':'';
+  var s=[
+   {t:'تثبيت OmniRoute',d:'نثبّته كحزمة عالمية عبر npm، وبعدها يعمل الأمر omniroute من أي مسار.'+(d==='windows'?' لو ظهرت مشكلة صلاحيات شغّل PowerShell بخيار Run as Administrator.':''),c:sudo+'npm install -g omniroute'},
+   {t:'تشغيل السيرفر',d:'افتح نافذة أو تبويب طرفية جديد واتركه مفتوحًا طوال الاستخدام. السيرفر يستمع على المنفذ 20128. لإيقافه اضغط Ctrl+C.'+(d==='android'?' لا تسمح لإعدادات توفير البطارية بإغلاق Termux.':'')+(d==='ios'?' iOS قد يوقف iSH في الخلفية، فأبقِه مفتوحًا.':''),c:'omniroute start'},
+   {t:'اختبار الاتصال',d:'من تبويب ثانٍ، شغّل الاختبار. ظهور JSON فيه content يعني أن السيرفر يعمل. الـ endpoint هو http://localhost:20128/v1 والموديل auto.',c:d==='windows'?'curl http://localhost:20128/v1/models':'curl http://localhost:20128/v1/models'},
+   {t:'ربط أداتك',d:'اختر الأمر المناسب لأداتك. لتشغيل Claude Code عبر OmniRoute استخدم الأول. للأدوات الأخرى استبدل claude باسم الأداة أو استخدم configure.',c:'omniroute run claude --model auto'}];
+  return s;
+}
+function humSteps(d){
+  var sudo=d==='linux'?'sudo ':'';
+  var s=[
+   {t:'تثبيت Claude Code',d:'Humanizer إضافة (skill) تعمل داخل Claude Code أو Codex، لذلك نثبّت Claude Code أولًا.',c:sudo+'npm install -g @anthropic-ai/claude-code'},
+   {t:'تشغيل Claude Code',d:'شغّله من أي مجلد واتبع تسجيل الدخول الذي يظهر. سيطبع رابطًا تفتحه في المتصفح لإتمام الدخول.',c:'claude'}];
+  if(d==='ios')s.push({t:'تنبيه خاص بآيفون',d:'Claude Code قد لا يعمل بثبات داخل iSH بسبب المحاكاة. لو تعطل، نفّذ خطوات Humanizer على كمبيوتر أو أندرويد.'});
+  s.push({t:'إضافة مستودع Humanizer',d:'اكتب الأمر التالي داخل جلسة Claude Code نفسها وليس في الطرفية العادية. هذا أمر Claude Code وليس أمر نظام.',c:'/plugin marketplace add blader/humanizer'});
+  s.push({t:'تثبيت الإضافة',d:'بعد إضافة المستودع ثبّت الإضافة. لو طلب منك إعادة تشغيل الجلسة فاخرج بـ /exit ثم شغّل claude من جديد.',c:'/plugin install humanizer@humanizer'});
+  s.push({t:'الاستخدام',d:'الصق نصًا واطلب من Claude أن يستخدم Humanizer لجعله أقرب لأسلوب الكتابة البشرية. المرجع الرسمي للتعليمات: github.com/blader/humanizer',l:'https://github.com/blader/humanizer#installation'});
+  return s;
+}
+function guideSteps(){
+  var s=base(gDev).slice();
+  if(gTool==='omni'||gTool==='both')s=s.concat(omniSteps(gDev));
+  if(gTool==='hum'||gTool==='both')s=s.concat(humSteps(gDev));
+  return s;
+}
+function chipRow(obj,cur,fn){
+  var w=el('div','chips');
+  Object.keys(obj).forEach(function(k){var c=el('div','chip'+(k===cur?' on':''),obj[k]);c.onclick=function(){fn(k)};w.appendChild(c)});
+  return w;
+}
+function renderSetup(v){
+  v.appendChild(el('h2','sec','ضبط الذكاء الاصطناعي'));
+  v.appendChild(el('p',null,'اختر جهازك ثم الأداة، وستظهر الخطوات كاملة بالترتيب.')).style.cssText='color:var(--t2);font-size:13px;margin-bottom:10px';
+  v.appendChild(chipRow(DEV,gDev,function(k){gDev=k;route()}));
+  v.appendChild(chipRow(TOOLS,gTool,function(k){gTool=k;route()}));
+  guideSteps().forEach(function(s,i){
+    var b=el('div','step rv');var h=el('h3');h.appendChild(el('i',null,String(i+1)));h.appendChild(document.createTextNode(s.t));b.appendChild(h);
+    b.appendChild(el('p',null,s.d));
+    if(s.l){var a=el('a','btn p','فتح الرابط');a.href=s.l;a.target='_blank';a.rel='noopener';b.appendChild(a)}
+    if(s.c){var c=el('div','cmd');c.appendChild(el('span',null,s.c));var bt=el('button',null,'نسخ');bt.onclick=function(){navigator.clipboard.writeText(s.c).then(function(){bt.textContent='تم'})};c.appendChild(bt);b.appendChild(c)}
+    v.appendChild(b);
+  });
+  v.appendChild(el('div','note','الأوامر التي تبدأ بـ / تُكتب داخل Claude Code فقط. باقي الأوامر تُكتب في الطرفية.'));
+}
+
+/* ---------- Router ---------- */
+function route(){
+  var h=location.hash||'#/',v=document.getElementById('view');
+  v.innerHTML='';v.style.animation='none';void v.offsetWidth;v.style.animation='';
+  document.title='Khaled Ahmed';
+  var r='home';
+  if(!LOADED&&h.indexOf('#/setup')!==0){v.appendChild(el('div','empty','جارِ التحميل'));return}
+  if(h.indexOf('#/blog')===0){r='blog';renderList(v,'المدونة','post')}
+  else if(h.indexOf('#/projects')===0){r='projects';renderList(v,'المشاريع','project')}
+  else if(h.indexOf('#/news')===0){r='news';renderList(v,'الأخبار','news')}
+  else if(h.indexOf('#/setup')===0){r='setup';renderSetup(v)}
+  else if(h.indexOf('#/profile')===0){r='profile';renderProfile(v)}
+  else if(h.indexOf('#/item/')===0){r='';renderItem(v,h.slice(7))}
+  else renderHome(v);
+  document.querySelectorAll('#nav a').forEach(function(a){a.classList.toggle('on',a.dataset.r===r)});
+  window.scrollTo(0,0);
+  setTimeout(observe,30);
+}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('show');io.unobserve(e.target)}})},{threshold:.08});
+function observe(){document.querySelectorAll('.rv:not(.show)').forEach(function(n){io.observe(n)})}
+window.addEventListener('hashchange',route);
+route();
+
+var DOMS=['AI','Cybersecurity','Mechatronics','Data Analysis','Software Engineering','Electrical Engineering','Mechanical Engineering'];
+function $(i){return document.getElementById(i)}
+function am(t,k){var e=$('amsg');e.textContent=t;e.className='amsg '+(t?k:'')}
+function chips(box,sel){box.innerHTML='';DOMS.forEach(function(d){var c=el('div','dc'+(sel&&sel.indexOf(d)>-1?' on':''),d);c.dataset.v=d;c.onclick=function(){c.classList.toggle('on')};box.appendChild(c)})}
+function picked(box){return Array.prototype.map.call(box.querySelectorAll('.dc.on'),function(c){return c.dataset.v})}
+chips($('dgrid'));
+window.toggleMenu=function(){$('nav').classList.toggle('open');$('scrim').classList.toggle('open')};
+window.switchTab=function(t){$('tl').className=t==='login'?'on':'';$('tr').className=t==='register'?'on':'';$('fl').style.display=t==='login'?'block':'none';$('fr').style.display=t==='register'?'block':'none';am('')};
+async function saveUser(u,x){await setDoc(doc(db,'kjbvv',u.uid),{uid:u.uid,name:x.name||u.displayName||'',username:x.username||'',email:u.email,phone:x.phone||'',domains:x.domains||[],photoURL:u.photoURL||'',createdAt:new Date().toISOString()},{merge:true})}
+window.signInGoogle=async function(){
+  try{var r=await signInWithPopup(auth,new GoogleAuthProvider());
+    try{var sn=await getDoc(doc(db,'kjbvv',r.user.uid));if(!sn.exists())await saveUser(r.user,{})}catch(e){console.error(e)}
+  }catch(e){am('فشل الدخول بـ Google: '+(e.code||e.message),'er')}
+};
+window.doLogin=async function(){
+  var e=$('le').value.trim(),p=$('lp').value;
+  if(!e||!p){am('أدخل البريد وكلمة المرور.','er');return}
+  try{var c=await signInWithEmailAndPassword(auth,e,p);
+    if(!c.user.emailVerified){am('يرجى تفعيل بريدك الإلكتروني أولًا.','in');$('resend').style.display='block'}
+  }catch(x){var M={'auth/invalid-credential':'البريد أو كلمة المرور غير صحيحة.','auth/user-not-found':'البريد غير مسجل.','auth/wrong-password':'كلمة المرور غير صحيحة.','auth/too-many-requests':'محاولات كثيرة، حاول لاحقًا.'};am(M[x.code]||x.message,'er')}
+};
+window.doRegister=async function(){
+  var n=$('rn').value.trim(),u=$('ru').value.trim(),e=$('re').value.trim(),ph=$('rph').value.trim(),p=$('rp').value,p2=$('rp2').value,d=picked($('dgrid'));
+  if(!n||!u||!e||!ph){am('أكمل كل الحقول.','er');return}
+  if(p.length<8){am('كلمة المرور 8 أحرف على الأقل.','er');return}
+  if(p!==p2){am('كلمتا المرور غير متطابقتين.','er');return}
+  if(!d.length){am('اختر مجالًا واحدًا على الأقل.','er');return}
+  try{var c=await createUserWithEmailAndPassword(auth,e,p);
+    try{await sendEmailVerification(c.user)}catch(x){console.error(x)}
+    try{await saveUser(c.user,{name:n,username:u,phone:ph,domains:d})}catch(x){console.error(x)}
+    switchTab('login');am('تم إنشاء الحساب. افتح رابط التفعيل المرسل إلى بريدك (تفقد Spam) ثم سجّل الدخول.','ok');$('resend').style.display='block';
+  }catch(x){var M={'auth/email-already-in-use':'هذا البريد مسجل مسبقًا.','auth/invalid-email':'البريد غير صالح.','auth/weak-password':'كلمة المرور ضعيفة.'};am(M[x.code]||x.message,'er')}
+};
+window.resendV=async function(){var u=auth.currentUser;if(!u){am('سجّل الدخول أولًا ثم أعد المحاولة.','er');return}try{await sendEmailVerification(u);am('تم إرسال رابط التفعيل.','ok')}catch(x){am(x.code==='auth/too-many-requests'?'محاولات كثيرة، انتظر قليلًا.':x.message,'er')}};
+window.forgot=async function(){var e=$('le').value.trim();if(!e){am('أدخل بريدك أولًا.','er');return}try{await sendPasswordResetEmail(auth,e);am('تم إرسال رابط إعادة التعيين إلى بريدك.','ok')}catch(x){am(x.message||x.code,'er')}};
+window.doSignOut=async function(){if($('nav').classList.contains('open'))toggleMenu();await signOut(auth);location.hash='#/'};
+var VIS=null,CU=null;
+function paintVis(){if(VIS===null)return;document.querySelectorAll('.vcn').forEach(function(e){var t0=performance.now();(function tk(n){var p=Math.min((n-t0)/900,1);e.textContent=Math.round(VIS*(1-Math.pow(1-p,3))).toLocaleString('ar-EG');if(p<1)requestAnimationFrame(tk)})(t0)})}
+async function countVisit(){
+  try{await updateDoc(doc(db,'khmeta','stats'),{real:increment(1)})}catch(e){console.error(e)}
+  try{var s=await getDoc(doc(db,'khmeta','stats'));var d=s.exists()?s.data():{};VIS=(Number(d.base)||0)+(Number(d.real)||0);paintVis()}catch(e){console.error(e)}
+}
+window.closeFw=function(){$('fw').classList.remove('show');try{localStorage.setItem('fwx',String(Date.now()))}catch(e){}};
+function showFw(){var t=0;try{t=Number(localStorage.getItem('fwx'))||0}catch(e){}if(Date.now()-t<864e5)return;setTimeout(function(){$('fw').classList.add('show')},6000)}
+function go(u){
+  $('auth').style.display='none';$('cmp').style.display='none';
+  setDoc(doc(db,'kjbvv',u.uid),{lastLogin:new Date().toISOString(),email:u.email},{merge:true}).catch(function(){});
+  load();countVisit();showFw();
+}
+window.saveComplete=async function(){
+  var n=$('cn').value.trim(),us=$('cu').value.trim(),ph=$('cph').value.trim(),d=picked($('cdg')),m=$('cmsg');
+  if(!n||!us||!ph||!d.length){m.textContent='أكمل كل الحقول واختر مجالًا واحدًا على الأقل.';m.className='amsg er';return}
+  try{await setDoc(doc(db,'kjbvv',CU.uid),{name:n,username:us,phone:ph,domains:d,email:CU.email},{merge:true});go(CU)}catch(x){m.textContent='تعذر الحفظ: '+(x.code||x.message);m.className='amsg er'}
+};
+async function checkProfile(u){
+  CU=u;var d={};
+  try{var s=await getDoc(doc(db,'kjbvv',u.uid));if(s.exists())d=s.data()}catch(e){console.error(e)}
+  if(d.name&&d.username&&d.phone&&d.domains&&d.domains.length){go(u);return}
+  $('cn').value=d.name||u.displayName||'';$('cu').value=d.username||'';$('cph').value=d.phone||'';chips($('cdg'),d.domains||[]);
+  $('auth').style.display='none';$('cmp').style.display='flex';
+}
+document.addEventListener('contextmenu',function(e){if(e.target.closest&&e.target.closest('.brand,.hero,.acard'))e.preventDefault()});
+document.addEventListener('dragstart',function(e){e.preventDefault()});
+onAuthStateChanged(auth,function(u){
+  if(u&&u.emailVerified){if(!started){started=true;checkProfile(u)}}
+  else{started=false;$('cmp').style.display='none';$('auth').style.display='flex'}
+});
+async function renderProfile(v){
+  var u=auth.currentUser;if(!u)return;
+  var d={};try{var sn=await getDoc(doc(db,'kjbvv',u.uid));if(sn.exists())d=sn.data()}catch(e){}
+  if((location.hash||'').indexOf('#/profile')!==0)return;
+  v.innerHTML='';
+  var w=el('div','pf');
+  var av=el('div','av');if(u.photoURL){var im=el('img');im.src=u.photoURL;im.alt='';av.appendChild(im)}else av.textContent=((d.name||u.email||'?')[0]||'?').toUpperCase();
+  w.appendChild(av);
+  w.appendChild(el('div','pm',u.email+'\nعضو منذ: '+fdate(d.createdAt)+'\nآخر دخول: '+(d.lastLogin?new Date(d.lastLogin).toLocaleString('ar-EG'):'-'))).style.whiteSpace='pre-line';
+  function f(lab,id,val,ta){w.appendChild(el('label',null,lab));var i=el(ta?'textarea':'input');i.id=id;i.value=val||'';if(ta)i.rows=3;w.appendChild(i)}
+  f('الاسم الكامل','pn',d.name);f('اسم المستخدم','pu',d.username);f('رقم الهاتف','pph',d.phone);
+  w.appendChild(el('label',null,'مجال الاستفادة'));var g=el('div','dg');chips(g,d.domains||[]);w.appendChild(g);
+  f('ملاحظات شخصية','pnt',d.notes,true);
+  var m=el('div','amsg');m.id='pmsg';w.appendChild(m);
+  var r=el('div','row');
+  var sv=el('button','btn p','حفظ التعديلات');sv.onclick=async function(){
+    try{await setDoc(doc(db,'kjbvv',u.uid),{name:$('pn').value.trim(),username:$('pu').value.trim(),phone:$('pph').value.trim(),notes:$('pnt').value.trim(),domains:picked(g)},{merge:true});m.textContent='تم حفظ التعديلات.';m.className='amsg ok'}catch(x){m.textContent='تعذر الحفظ: '+(x.code||x.message);m.className='amsg er'}};
+  var so=el('button','btn','تسجيل الخروج');so.onclick=window.doSignOut;
+  r.appendChild(sv);r.appendChild(so);w.appendChild(r);v.appendChild(w);
+}
+
+</script>
+</body>
+</html>
