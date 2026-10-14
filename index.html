@@ -567,13 +567,28 @@ function setMsg(n,t){
   var b=$('aim');b.scrollTop=b.scrollHeight;
 }
 function addMsg(role,t){var n=el('div','am '+role);$('aim').appendChild(n);setMsg(n,t);return n}
+var DEFM='gemini-3.8-flash',AUTOM=null;
+function gem(model,bd){return fetch('https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(model)+':generateContent',{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':GK},body:bd})}
+async function pickModel(){
+  try{var r=await fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=200',{headers:{'x-goog-api-key':GK}}),j=await r.json();
+    var l=(j.models||[]).filter(function(m){return /flash/i.test(m.name)&&!/(lite|image|tts|live|audio|thinking|exp|preview|embedding|robotics)/i.test(m.name)&&(m.supportedGenerationMethods||[]).indexOf('generateContent')>-1}).map(function(m){return m.name.replace('models/','')});
+    l.sort(function(a,b){return parseFloat((b.match(/\d+(\.\d+)?/)||[0])[0])-parseFloat((a.match(/\d+(\.\d+)?/)||[0])[0])});
+    if(l.length)return l[0];
+  }catch(e){console.error(e)}
+  return DEFM;
+}
 async function aiAsk(q){
   if(!GK){toast('أضف مفتاح Gemini من الملف الشخصي');return}
   addMsg('user',q);HIST.push({role:'user',parts:[{text:q}]});
   var w=addMsg('bot','جارِ التفكير...'),h=HIST.slice(-11);while(h.length&&h[0].role!=='user')h.shift();
   try{
-    var r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(GM||'gemini-2.5-flash')+':generateContent',{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':GK},body:JSON.stringify({system_instruction:{parts:[{text:aiSys()}]},contents:h})});
-    var j=await r.json();if(!r.ok)throw new Error((j.error&&j.error.message)||r.status);
+    var bd=JSON.stringify({system_instruction:{parts:[{text:aiSys()}]},contents:h});
+    var model=AUTOM||((GM&&!/^gemini-(1|2)/.test(GM))?GM:DEFM);
+    var r=await gem(model,bd),j=await r.json();
+    if(!r.ok&&/no longer available|not found|not supported|deprecated|404/i.test(JSON.stringify(j.error||{})+r.status)){
+      var m2=await pickModel();if(m2&&m2!==model){r=await gem(m2,bd);j=await r.json();if(r.ok)AUTOM=m2}
+    }
+    if(!r.ok)throw new Error((j.error&&j.error.message)||r.status);
     var t=(j.candidates&&j.candidates[0]&&j.candidates[0].content&&j.candidates[0].content.parts||[]).map(function(p){return p.text||''}).join('')||'لم أحصل على رد.';
     HIST.push({role:'model',parts:[{text:t}]});setMsg(w,t);
   }catch(e){HIST.pop();setMsg(w,'تعذر الاتصال بـ Gemini: '+e.message)}
@@ -640,10 +655,10 @@ async function renderProfile(v){
   f('ملاحظات شخصية','pnt',d.notes,true);
   var gl=el('label',null,'مفتاح Gemini API (اختياري)');w.appendChild(gl);
   var gk=el('input');gk.id='pgk';gk.type='password';gk.autocomplete='off';gk.dir='ltr';gk.placeholder=d.geminiKey?'مفتاح محفوظ، اكتب مفتاحًا جديدًا للاستبدال':'الصق المفتاح هنا';w.appendChild(gk);
-  var gm=el('input');gm.id='pgm';gm.dir='ltr';gm.value=d.geminiModel||'gemini-2.5-flash';w.appendChild(gm);
+  var gm=el('input');gm.id='pgm';gm.dir='ltr';gm.value=(d.geminiModel&&!/^gemini-(1|2)/.test(d.geminiModel))?d.geminiModel:'gemini-3.8-flash';w.appendChild(gm);
   var gh=el('div','hint');gh.appendChild(document.createTextNode('عند إضافة المفتاح يظهر المساعد الذكي في كل صفحات المنصة. احصل على مفتاح من '));var ga=el('a',null,'Google AI Studio');ga.href='https://aistudio.google.com/apikey';ga.target='_blank';ga.rel='noopener';gh.appendChild(ga);gh.appendChild(document.createTextNode('. يُحفظ المفتاح في حسابك وتُرسل المحادثات من متصفحك مباشرة إلى Google. قيّد المفتاح من إعدادات Google قدر الإمكان.'));w.appendChild(gh);
   var gr=el('div','row');gr.style.marginBottom='14px';
-  var gs=el('button','btn p','حفظ المفتاح');gs.onclick=async function(){var k=gk.value.trim()||d.geminiKey||'';if(!k){toast('الصق المفتاح أولًا');return}try{await setDoc(doc(db,'kjbvv',u.uid),{geminiKey:k,geminiModel:gm.value.trim()||'gemini-2.5-flash'},{merge:true});d.geminiKey=k;GK=k;GM=gm.value.trim();UD.geminiKey=k;UD.geminiModel=GM;gk.value='';syncAI();toast('تم تفعيل المساعد الذكي')}catch(x){toast('تعذر الحفظ')}};
+  var gs=el('button','btn p','حفظ المفتاح');gs.onclick=async function(){var k=gk.value.trim()||d.geminiKey||'';if(!k){toast('الصق المفتاح أولًا');return}try{await setDoc(doc(db,'kjbvv',u.uid),{geminiKey:k,geminiModel:gm.value.trim()||'gemini-3.8-flash'},{merge:true});d.geminiKey=k;GK=k;GM=gm.value.trim();UD.geminiKey=k;UD.geminiModel=GM;gk.value='';syncAI();toast('تم تفعيل المساعد الذكي')}catch(x){toast('تعذر الحفظ')}};
   var gd=el('button','btn','حذف المفتاح');gd.onclick=async function(){try{await setDoc(doc(db,'kjbvv',u.uid),{geminiKey:''},{merge:true});d.geminiKey='';GK='';UD.geminiKey='';syncAI();toast('تم حذف المفتاح وإخفاء المساعد')}catch(x){toast('تعذر الحذف')}};
   gr.appendChild(gs);gr.appendChild(gd);w.appendChild(gr);
   var m=el('div','amsg');m.id='pmsg';w.appendChild(m);
