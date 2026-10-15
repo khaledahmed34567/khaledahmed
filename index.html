@@ -200,6 +200,22 @@ h2{scroll-margin-top:90px}
 .hint{font-size:11.5px;color:var(--t3);line-height:1.8;margin:-4px 0 10px}.hint a{color:#a99bff}
 @media(max-width:700px){.aib{bottom:152px}#aip{bottom:152px;height:min(480px,60vh)}.toast{bottom:110px}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.am{unicode-bidi:plaintext}
+.nb{max-width:900px;margin:12px auto 0;padding:10px 14px;border-radius:12px;background:rgba(124,92,255,.18);border:1px solid rgba(124,92,255,.5);backdrop-filter:blur(14px);align-items:center;justify-content:space-between;gap:10px;font-size:13px;line-height:1.8;animation:fadeup .5s both}.nb button{background:none;border:0;color:#fff;cursor:pointer;font-size:16px}
+.art .body{font-size:calc(16px*var(--fz,1))}
+
+.code{margin:16px 0;border:1px solid var(--b);border-radius:14px;overflow:hidden;background:rgba(10,10,12,.78);backdrop-filter:blur(12px)}
+.ch{display:flex;align-items:center;gap:10px;padding:8px 12px;background:rgba(255,255,255,.06);border-bottom:1px solid var(--b);font-size:12.5px}
+.ch .cl2{font:700 11px 'KH-Time','IBM Plex Mono',monospace;color:#a99bff;background:rgba(124,92,255,.22);padding:2px 8px;border-radius:6px}
+.cpb{margin-right:auto;padding:5px 12px;border-radius:8px;border:1px solid var(--b);background:rgba(255,255,255,.08);color:#fff;font-family:inherit;font-size:12px;cursor:pointer}.cpb:hover{border-color:var(--a)}
+.cpre{overflow-x:auto;padding:8px 0;font:12.5px/1.8 'IBM Plex Mono',monospace;direction:ltr;text-align:left}
+.ln{display:flex;min-width:max-content;padding-right:14px}.lno{width:40px;flex-shrink:0;text-align:center;color:#555;user-select:none}.lc{white-space:pre;color:#e6e6e6}
+.cex{padding:10px 12px;border-top:1px solid var(--b);display:flex;flex-direction:column;gap:8px}
+.cn{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.9}
+.cn i{flex-shrink:0;width:22px;height:22px;border-radius:50%;font:700 11px sans-serif;display:flex;align-items:center;justify-content:center;color:#000;margin-top:3px}
+.cx{padding:10px 12px;border-top:1px solid var(--b);font-size:13px;color:#cfcfcf;line-height:1.9}
+.hljs-keyword,.hljs-selector-tag,.hljs-literal,.hljs-doctag{color:#c792ea}.hljs-string,.hljs-regexp,.hljs-addition{color:#c3e88d}.hljs-number,.hljs-symbol,.hljs-bullet{color:#f78c6c}.hljs-comment,.hljs-quote{color:#6a737d;font-style:italic}.hljs-title,.hljs-section{color:#82aaff}.hljs-built_in,.hljs-type{color:#ffcb6b}.hljs-attr,.hljs-attribute,.hljs-variable,.hljs-template-variable,.hljs-property{color:#89ddff}.hljs-meta,.hljs-tag,.hljs-name{color:#f07178}
+.pf select{width:100%;padding:10px 12px;margin-bottom:10px;background:rgba(0,0,0,.45);border:1px solid var(--b);border-radius:10px;color:#fff;font-family:inherit;font-size:13px}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Kufam:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -238,11 +254,14 @@ h2{scroll-margin-top:90px}
     <a href="#/setup" data-r="setup">ضبط الذكاء الاصطناعي</a>
     <a href="#/profile" data-r="profile">الملف الشخصي</a>
     <a href="#/saved" data-r="saved">المحفوظات</a>
+    <a href="#/apis" data-r="apis">دليل الـ APIs</a>
+    <a href="#/contact" data-r="contact">تواصل معي</a>
     <button onclick="doSignOut()">تسجيل الخروج</button>
   </nav>
   <a class="in" href="https://www.linkedin.com/in/khaled-ahmed-241002386" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/></svg>LinkedIn</a>
 </header>
 <div class="ticker" id="ticker" style="display:none"><div class="ticker-in" id="ticker-in"></div></div>
+<div class="nb" id="nb" style="display:none"><span></span><button onclick="closeNb()" aria-label="إغلاق">x</button></div>
 <main id="view"></main>
 <div id="btm"><a href="#/" data-r="home"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 11l9-8 9 8M5 10v10h14V10"/></svg>الرئيسية</a><a href="#/blog" data-r="blog"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4h16v16H4zM8 9h8M8 13h8M8 17h5"/></svg>المدونة</a><a href="#/projects" data-r="projects"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 7h18v13H3zM8 7V4h8v3"/></svg>المشاريع</a><a href="#/news" data-r="news"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5h13v14H6a2 2 0 0 1-2-2zM17 9h3v8a2 2 0 0 1-2 2M8 9h6M8 13h6"/></svg>الأخبار</a><a href="#/setup" data-r="setup"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 17l6-6-6-6M12 19h8"/></svg>الإعداد</a></div>
 <div id="rp"></div>
@@ -250,15 +269,17 @@ h2{scroll-margin-top:90px}
 <div id="aip"><div class="aih"><b>المساعد الذكي</b><button onclick="toggleAi()" aria-label="إغلاق">x</button></div><div id="aim"></div><div class="aic" id="aic"></div><div class="aif"><input id="aiq" placeholder="اسألني عن أي شيء في المنصة" onkeydown="if(event.key==='Enter')aiSend()"><button class="btn p" onclick="aiSend()">إرسال</button></div></div>
 <button class="totop" id="top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="للأعلى"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 15l6-6 6 6"/></svg></button>
 
-<footer><div class="fl"><a class="in" href="https://www.linkedin.com/in/khaled-ahmed-241002386" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/></svg>تابعني على LinkedIn</a></div><div class="vis" style="margin:0 0 6px">عدد الزوار: <b class="vcn" style="font-size:15px">0</b> - متصل الآن: <b class="onn" style="font-size:15px">0</b></div><div>جميع الحقوق محفوظة</div></footer>
+<footer><div class="fl"><a class="in" href="https://www.linkedin.com/in/khaled-ahmed-241002386" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/></svg>تابعني على LinkedIn</a></div><div class="vis" style="margin:0 0 6px">عدد الزوار: <b class="vcn" style="font-size:15px">0</b> - متصل الآن: <b class="onn" style="font-size:15px">0</b></div><div><a class="lnk" href="#/contact">تواصل معي</a></div><div>جميع الحقوق محفوظة</div></footer>
 
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-import {getFirestore,collection,getDocs,query,orderBy,doc,setDoc,getDoc,updateDoc,increment,onSnapshot,arrayUnion,arrayRemove,deleteDoc} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+import {getFirestore,collection,getDocs,query,orderBy,doc,setDoc,getDoc,updateDoc,increment,onSnapshot,arrayUnion,arrayRemove,deleteDoc,addDoc} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,GoogleAuthProvider,signInWithPopup,sendEmailVerification,sendPasswordResetEmail,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 var app=initializeApp({apiKey:"AIzaSyCTGnFOK7m_xNod8mwBPB5HTgTP2BrNm6o",authDomain:"cyberintel-d0d4f.firebaseapp.com",projectId:"cyberintel-d0d4f",storageBucket:"cyberintel-d0d4f.firebasestorage.app",messagingSenderId:"533279564815",appId:"1:533279564815:web:d373567c2be86311127af7a"});
 var db=getFirestore(app),auth=getAuth(app),ITEMS=[],STATS={},LOADED=false,started=false;
 document.body.appendChild(document.getElementById('nav'));
+try{var z0=localStorage.getItem('fz');if(z0)document.documentElement.style.setProperty('--fz',z0)}catch(e){}
 var TYPES={post:'المدونة',project:'المشاريع',news:'الأخبار'};
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
 function fdate(s){try{return new Date(s).toLocaleDateString('ar-EG')}catch(e){return ''}}
@@ -286,7 +307,7 @@ function buildTicker(){
 function card(i){
   var a=el('a','card rv'+(i.type==='project'?' fog':''));a.href='#/item/'+i.id;if(i.type==='project'){var fv=el('div','fogv');fv.appendChild(el('span',null,'افتح المشروع'));a.appendChild(fv)}
   if(i.cover){var w=el('div','cimg'),im=el('img');im.src=i.cover;im.alt='';im.loading='lazy';w.appendChild(im);a.appendChild(w)}
-  var b=el('div','cb');b.appendChild(el('div','tag',(i.pinned?'مثبت - ':'')+(TYPES[i.type]||'')));b.appendChild(el('h3',null,i.title));
+  var b=el('div','cb');b.appendChild(el('div','tag',(PREV&&i.createdAt>PREV?'جديد - ':'')+(i.pinned?'مثبت - ':'')+(TYPES[i.type]||'')+(hasArr('read',i.id)?' - مقروء':'')));b.appendChild(el('h3',null,i.title));
   if(i.summary)b.appendChild(el('p',null,i.summary));
   b.appendChild(el('div','date',ftime(i.createdAt)));var cs=STATS[i.id];if(cs&&(cs.views||cs.likes))b.appendChild(el('div','st',(cs.views||0)+' مشاهدة - '+(cs.likes||0)+' إعجاب'));a.appendChild(b);return a;
 }
@@ -308,10 +329,12 @@ function renderHome(v){
   h.appendChild(el('p',null,'مدونة ومشاريع وأخبار، مع دليل مفصل لضبط أدوات الذكاء الاصطناعي على الهاتف والكمبيوتر.'));
   var b=el('div','btns');b.appendChild(link('المدونة','#/blog','p'));b.appendChild(link('ضبط الذكاء الاصطناعي','#/setup'));b.appendChild(link('المشاريع','#/projects'));
   var vz=el('div','vis');vz.appendChild(document.createTextNode('عدد الزوار'));vz.appendChild(el('b','vcn','0'));vz.appendChild(document.createTextNode(' - متصل الآن '));vz.appendChild(el('b','onn','0'));h.appendChild(b);h.appendChild(vz);v.appendChild(h);paintVis();paintOnl();
-  var TL=[['المدونة','#/blog',ofType('post').length,'<path d="M4 4h16v16H4zM8 9h8M8 13h8M8 17h5"/>'],['المشاريع','#/projects',ofType('project').length,'<path d="M3 7h18v13H3zM8 7V4h8v3"/>'],['الأخبار','#/news',ofType('news').length,'<path d="M4 5h13v14H6a2 2 0 0 1-2-2zM17 9h3v8a2 2 0 0 1-2 2M8 9h6M8 13h6"/>'],['ضبط الذكاء الاصطناعي','#/setup','دليل خطوة بخطوة','<path d="M4 17l6-6-6-6M12 19h8"/>']];
+  var TL=[['المدونة','#/blog',ofType('post').length,'<path d="M4 4h16v16H4zM8 9h8M8 13h8M8 17h5"/>'],['المشاريع','#/projects',ofType('project').length,'<path d="M3 7h18v13H3zM8 7V4h8v3"/>'],['الأخبار','#/news',ofType('news').length,'<path d="M4 5h13v14H6a2 2 0 0 1-2-2zM17 9h3v8a2 2 0 0 1-2 2M8 9h6M8 13h6"/>'],['ضبط الذكاء الاصطناعي','#/setup','دليل خطوة بخطوة','<path d="M4 17l6-6-6-6M12 19h8"/>'],['دليل الـ APIs','#/apis','قائمة واجهات مجانية','<path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/>'],['تواصل معي','#/contact','رسالة للإدارة','<path d="M4 5h16v12H8l-4 4z"/>']];
   var tl=el('div','tiles');TL.forEach(function(t){var a=el('a','tile rv');a.href=t[1];a.innerHTML='<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">'+t[3]+'</svg>';a.appendChild(el('b',null,t[0]));a.appendChild(el('small',null,typeof t[2]==='number'?t[2]+' عنصر':t[2]));tl.appendChild(a)});v.appendChild(tl);
   var pin=ITEMS.filter(function(i){return i.pinned})[0];
   if(pin){v.appendChild(el('h2','sec rv','مميز'));var pg=el('div','grid');pg.appendChild(card(pin));v.appendChild(pg)}
+  var rd=(UD.read||[]).slice(-3).reverse().map(function(id){return ITEMS.filter(function(x){return x.id===id})[0]}).filter(Boolean);
+  if(rd.length){v.appendChild(el('h2','sec rv','تابع القراءة'));var rg0=el('div','grid');rd.forEach(function(x){rg0.appendChild(card(x))});v.appendChild(rg0)}
   section(v,'آخر الأخبار','news',3,'news');
   section(v,'آخر المشاريع','project',3,'projects');
   section(v,'آخر المقالات','post',3,'blog');
@@ -345,6 +368,7 @@ var HEADS=[];function renderBody(box,raw){HEADS=[];
   data.forEach(function(b){
     if(typeof b==='string'){box.appendChild(lk(b));return}
     if(b.box){var TT={note:'التنبيه',warn:'التحذير',must:'يجب'},IC={note:'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/>',warn:'<path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.01"/>',must:'<circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/>'},ty=TT[b.box]?b.box:'note';var bb=el('div','box '+ty),bh=el('div','bh');bh.innerHTML='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+IC[ty]+'</svg>';bh.appendChild(el('span','bt',b.title||TT[ty]));bb.appendChild(bh);bb.appendChild(lk(b.text||''));box.appendChild(bb);return}
+    if(b.code!=null){box.appendChild(codeBlock(b));return}
     if(b.img){var im=el('img');im.src=b.img;im.alt='';im.loading='lazy';box.appendChild(im);return}
     var p=el(b.h?'h2':'p');if(b.h){p.id='hh'+HEADS.length;HEADS.push({id:p.id,t:b.text||''})}if(b.link){p.appendChild(mkA(b.link,b.text||b.link))}else lk(b.text||'',p);
     if(b.color)p.style.color=b.color;
@@ -371,6 +395,12 @@ function renderItem(v,id){
   var sb=el('button','btn');function svT(){var on=hasArr('saved',id);sb.textContent=on?'محفوظ':'حفظ لوقت لاحق';sb.className='btn'+(on?' p':'')}
   svT();sb.onclick=async function(){var on=await toggleArr('saved',id);svT();toast(on?'تمت الإضافة إلى المحفوظات':'أُزيل من المحفوظات')};
   sh.appendChild(lb);sh.appendChild(sb);
+  if(GK){var ab=el('button','btn','لخّص بالذكاء الاصطناعي');ab.onclick=function(){$('aip').classList.add('open');aiAsk('لخّص هذا المقال في نقاط قصيرة')};sh.appendChild(ab)}
+  if(window.speechSynthesis){var sp=el('button','btn','استمع'),spOn=false;sp.onclick=function(){if(spOn){speechSynthesis.cancel();spOn=false;sp.textContent='استمع';return}var u2=new SpeechSynthesisUtterance(it.title+'. '+bodyText(it.body));u2.lang='ar-SA';u2.onend=function(){spOn=false;sp.textContent='استمع'};speechSynthesis.speak(u2);spOn=true;sp.textContent='إيقاف'};sh.appendChild(sp)}
+  var fa=el('button','btn','A+'),fm=el('button','btn','A-');
+  function fz(d2){var c=parseFloat(document.documentElement.style.getPropertyValue('--fz'))||1;c=Math.max(.85,Math.min(1.6,c+d2));document.documentElement.style.setProperty('--fz',String(c));try{localStorage.setItem('fz',String(c))}catch(e){}}
+  fa.onclick=function(){fz(.1)};fm.onclick=function(){fz(-.1)};sh.appendChild(fa);sh.appendChild(fm);
+  if(!hasArr('read',id)){UD.read=(UD.read||[]).concat([id]);setDoc(doc(db,'kjbvv',CU.uid),{read:arrayUnion(id)},{merge:true}).catch(function(){})}
   var vk='kv'+id;try{if(!sessionStorage.getItem(vk)){sessionStorage.setItem(vk,'1');bump(id,'views',1)}}catch(e){}
   mt.appendChild(el('span',null,((STATS[id]&&STATS[id].views)||0)+' مشاهدة'));
   a.appendChild(sh);
@@ -388,7 +418,7 @@ function renderItem(v,id){
 /* ---------- Setup guide ---------- */
 var DEV={android:'أندرويد (Termux)',ios:'آيفون (iSH)',windows:'ويندوز',linux:'لينكس'};
 var TOOLS={omni:'OmniRoute',hum:'Humanizer',both:'الاثنان معًا'};
-var gDev='android',gTool='omni';
+var gDev='android',gTool='omni',gPage='setup';
 function base(d){
   var S={
   android:[
@@ -443,16 +473,16 @@ function chipRow(obj,cur,fn){
   return w;
 }
 function renderSetup(v){
-  v.appendChild(el('h2','sec','ضبط الذكاء الاصطناعي'));
-  v.appendChild(el('p',null,'اختر جهازك ثم الأداة، وستظهر الخطوات كاملة بالترتيب.')).style.cssText='color:var(--t2);font-size:13px;margin-bottom:10px';
+  v.appendChild(el('h2','sec',gPage==='apis'?'دليل الـ APIs العامة':'ضبط الذكاء الاصطناعي'));
+  v.appendChild(el('p',null,(gPage==='apis'?'اختر جهازك وستظهر الخطوات كاملة بالترتيب.':'اختر جهازك ثم الأداة، وستظهر الخطوات كاملة بالترتيب.'))).style.cssText='color:var(--t2);font-size:13px;margin-bottom:10px';
   v.appendChild(chipRow(DEV,gDev,function(k){gDev=k;route()}));
-  v.appendChild(chipRow(TOOLS,gTool,function(k){gTool=k;route()}));
+  if(gPage!=='apis')v.appendChild(chipRow(TOOLS,gTool,function(k){gTool=k;route()}));
   var pg=el('div','prog'),pf=el('i');pg.appendChild(pf);v.appendChild(pg);
   function updProg(){var n=v.querySelectorAll('.step.dn').length,t=v.querySelectorAll('.step').length;pf.style.width=(t?n/t*100:0)+'%'}
-  guideSteps().forEach(function(s,i){
+  (gPage==='apis'?apiSteps(gDev):guideSteps()).forEach(function(s,i){
     var b=el('div','step rv');var h=el('h3');h.appendChild(el('i',null,String(i+1)));h.appendChild(document.createTextNode(s.t));b.appendChild(h);
     b.appendChild(el('p',null,s.d));
-    var sk2='khs'+gDev+gTool+i,dn=false;try{dn=localStorage.getItem(sk2)==='1'}catch(e){}
+    var sk2='khs'+gPage+gDev+gTool+i,dn=false;try{dn=localStorage.getItem(sk2)==='1'}catch(e){}
     if(dn)b.classList.add('dn');
     var tb=el('button','tgl',dn?'منفذة':'تم التنفيذ');tb.onclick=function(){dn=!dn;try{localStorage.setItem(sk2,dn?'1':'0')}catch(e){}b.classList.toggle('dn',dn);tb.textContent=dn?'منفذة':'تم التنفيذ';updProg()};b.appendChild(tb);
     if(s.l){var a=el('a','btn p','فتح الرابط');a.href=s.l;a.target='_blank';a.rel='noopener';b.appendChild(a)}
@@ -464,7 +494,7 @@ function renderSetup(v){
 
 /* ---------- Router ---------- */
 function route(){
-  var h=location.hash||'#/',v=document.getElementById('view');
+  var h=location.hash||'#/',v=document.getElementById('view');if(window.speechSynthesis)speechSynthesis.cancel();
   v.innerHTML='';v.style.animation='none';void v.offsetWidth;v.style.animation='';
   document.title='Khaled Ahmed';
   var r='home';
@@ -472,7 +502,9 @@ function route(){
   if(h.indexOf('#/blog')===0){r='blog';renderList(v,'المدونة','post')}
   else if(h.indexOf('#/projects')===0){r='projects';renderList(v,'المشاريع','project')}
   else if(h.indexOf('#/news')===0){r='news';renderList(v,'الأخبار','news')}
-  else if(h.indexOf('#/setup')===0){r='setup';renderSetup(v)}
+  else if(h.indexOf('#/setup')===0){r='setup';gPage='setup';renderSetup(v)}
+  else if(h.indexOf('#/apis')===0){r='apis';gPage='apis';renderSetup(v)}
+  else if(h.indexOf('#/contact')===0){r='contact';renderContact(v)}
   else if(h.indexOf('#/profile')===0){r='profile';renderProfile(v)}
   else if(h.indexOf('#/saved')===0){r='saved';renderSaved(v)}
   else if(h.indexOf('#/item/')===0){r='';renderItem(v,h.slice(7))}
@@ -522,7 +554,9 @@ window.doRegister=async function(){
 window.resendV=async function(){var u=auth.currentUser;if(!u){am('سجّل الدخول أولًا ثم أعد المحاولة.','er');return}try{await sendEmailVerification(u);am('تم إرسال رابط التفعيل.','ok')}catch(x){am(x.code==='auth/too-many-requests'?'محاولات كثيرة، انتظر قليلًا.':x.message,'er')}};
 window.forgot=async function(){var e=$('le').value.trim();if(!e){am('أدخل بريدك أولًا.','er');return}try{await sendPasswordResetEmail(auth,e);am('تم إرسال رابط إعادة التعيين إلى بريدك.','ok')}catch(x){am(x.message||x.code,'er')}};
 window.doSignOut=async function(){if($('nav').classList.contains('open'))toggleMenu();await signOut(auth);location.hash='#/'};
-var VIS=null,VD=0,CU=null,UD={},GK='',GM='',HIST=[],PRES=[];
+var VIS=null,VD=0,CU=null,UD={},GK='',GM='',HIST=[],PRES=[],PREV='',NOTICE='';
+function showNotice(t){NOTICE=t;var e=$('nb'),x='';try{x=sessionStorage.getItem('nbx')||''}catch(er){}if(!t||x===t){e.style.display='none';return}e.firstChild.textContent=t;e.style.display='flex'}
+window.closeNb=function(){try{sessionStorage.setItem('nbx',NOTICE)}catch(e){}$('nb').style.display='none'};
 function paintVis(){document.querySelectorAll('.vcn').forEach(function(e){e.textContent=VD.toLocaleString('ar-EG')})}
 function setVis(n){
   var from=VD,t0=performance.now();
@@ -568,7 +602,15 @@ function setMsg(n,t){
 }
 function addMsg(role,t){var n=el('div','am '+role);$('aim').appendChild(n);setMsg(n,t);return n}
 var DEFM='gemini-3.8-flash',AUTOM=null;
-function gem(model,bd){return fetch('https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(model)+':generateContent',{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':GK},body:bd})}
+var MODELS=null;
+function gem(model,bd,k){return fetch('https://generativelanguage.googleapis.com/v1beta/models/'+encodeURIComponent(model)+':generateContent',{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':k||GK},body:bd})}
+async function gModels(k){
+  var r=await fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=200',{headers:{'x-goog-api-key':k||GK}}),j=await r.json();
+  if(!r.ok)throw new Error((j.error&&j.error.message)||('HTTP '+r.status));
+  var l=(j.models||[]).filter(function(m){return /^models\/gemini/i.test(m.name)&&(m.supportedGenerationMethods||[]).indexOf('generateContent')>-1&&!/(embedding|image|tts|live|audio|robotics|vision|computer-use|learnlm|aqa)/i.test(m.name)}).map(function(m){return m.name.replace('models/','')});
+  function sc(n){return parseFloat((n.match(/\d+(\.\d+)?/)||[0])[0])*1000+(/flash/i.test(n)?200:0)-(/lite/i.test(n)?50:0)-(/(preview|exp)/i.test(n)?100:0)}
+  l.sort(function(a,b){return sc(b)-sc(a)});return l;
+}
 async function pickModel(){
   try{var r=await fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=200',{headers:{'x-goog-api-key':GK}}),j=await r.json();
     var l=(j.models||[]).filter(function(m){return /flash/i.test(m.name)&&!/(lite|image|tts|live|audio|thinking|exp|preview|embedding|robotics)/i.test(m.name)&&(m.supportedGenerationMethods||[]).indexOf('generateContent')>-1}).map(function(m){return m.name.replace('models/','')});
@@ -583,15 +625,18 @@ async function aiAsk(q){
   var w=addMsg('bot','جارِ التفكير...'),h=HIST.slice(-11);while(h.length&&h[0].role!=='user')h.shift();
   try{
     var bd=JSON.stringify({system_instruction:{parts:[{text:aiSys()}]},contents:h});
-    var model=AUTOM||((GM&&!/^gemini-(1|2)/.test(GM))?GM:DEFM);
-    var r=await gem(model,bd),j=await r.json();
-    if(!r.ok&&/no longer available|not found|not supported|deprecated|404/i.test(JSON.stringify(j.error||{})+r.status)){
-      var m2=await pickModel();if(m2&&m2!==model){r=await gem(m2,bd);j=await r.json();if(r.ok)AUTOM=m2}
+    var first=AUTOM||((GM&&!/^gemini-(1|2)/.test(GM))?GM:DEFM),r,j;
+    async function tryM(m){r=await gem(m,bd);j=await r.json();return r.ok}
+    var ok=await tryM(first);
+    if(!ok&&r.status!==401&&r.status!==403&&!/api key|API_KEY/i.test(JSON.stringify(j.error||{}))){
+      try{MODELS=MODELS||await gModels(GK)}catch(e){MODELS=[]}
+      var n=0;for(var i=0;i<MODELS.length&&n<4&&!ok;i++){if(MODELS[i]===first)continue;n++;ok=await tryM(MODELS[i]);if(ok)AUTOM=MODELS[i]}
     }
-    if(!r.ok)throw new Error((j.error&&j.error.message)||r.status);
-    var t=(j.candidates&&j.candidates[0]&&j.candidates[0].content&&j.candidates[0].content.parts||[]).map(function(p){return p.text||''}).join('')||'لم أحصل على رد.';
+    if(!ok)throw new Error((j.error&&j.error.message)||('HTTP '+r.status));
+    var cd=j.candidates&&j.candidates[0],t=((cd&&cd.content&&cd.content.parts)||[]).map(function(p){return p.text||''}).join('');
+    if(!t)t=(j.promptFeedback&&j.promptFeedback.blockReason)?'تم حجب الطلب من Gemini: '+j.promptFeedback.blockReason:'لم أحصل على رد'+(cd&&cd.finishReason?' ('+cd.finishReason+')':'');
     HIST.push({role:'model',parts:[{text:t}]});setMsg(w,t);
-  }catch(e){HIST.pop();setMsg(w,'تعذر الاتصال بـ Gemini: '+e.message)}
+  }catch(e){HIST.pop();setMsg(w,'تعذر الاتصال بـ Gemini: '+e.message+(/Failed to fetch|NetworkError|Load failed/i.test(e.message)?' (تأكد من الإنترنت أو عطّل حاجب الإعلانات لهذا الموقع)':''))}
 }
 window.aiSend=function(){var i=$('aiq'),q=i.value.trim();if(!q)return;i.value='';aiAsk(q)};
 window.toggleAi=function(){$('aip').classList.toggle('open')};
@@ -604,10 +649,78 @@ function syncAI(){
   }
 }
 window.syncAI=syncAI;
+var PAL=['#7c5cff','#42be65','#f1c21b','#fa4d56','#78a9ff','#ff8fd1'];
+function lineSet(s){var o={};String(s||'').split(',').forEach(function(p){var m=p.trim().match(/^(\d+)(?:\s*-\s*(\d+))?$/);if(!m)return;var a=+m[1],z=m[2]?+m[2]:a;for(var i=a;i<=z&&i<a+500;i++)o[i]=1});return o}
+function hlLines(code,lang){
+  var html;try{if(window.hljs){html=(lang&&hljs.getLanguage(lang))?hljs.highlight(code,{language:lang,ignoreIllegals:true}).value:hljs.highlightAuto(code).value}}catch(e){}
+  if(html==null)html=code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  var open=[],out=[];
+  html.split('\n').forEach(function(ln){var pre=open.join(''),re=/<span[^>]*>|<\/span>/g,m;while((m=re.exec(ln))){if(m[0]==='</span>')open.pop();else open.push(m[0])}out.push(pre+ln+new Array(open.length+1).join('</span>'))});
+  return out;
+}
+function codeBlock(b){
+  var w=el('div','code'),h=el('div','ch');h.appendChild(el('span','cl2',(b.lang||'code').toUpperCase()));if(b.title)h.appendChild(el('b',null,b.title));
+  var cp=el('button','cpb','نسخ الكود');cp.onclick=function(){navigator.clipboard.writeText(String(b.code)).then(function(){cp.textContent='تم النسخ';setTimeout(function(){cp.textContent='نسخ الكود'},1800)},function(){toast('تعذر النسخ')})};
+  h.appendChild(cp);w.appendChild(h);
+  var notes=Array.isArray(b.notes)?b.notes:[],col={};
+  notes.forEach(function(n,i){Object.keys(lineSet(n.lines)).forEach(function(k){col[k]=i%PAL.length})});
+  var pre=el('div','cpre');
+  hlLines(String(b.code),b.lang).forEach(function(l,i){
+    var r=el('div','ln');if(col[i+1]!=null){r.style.background=PAL[col[i+1]]+'26';r.style.boxShadow='inset 3px 0 '+PAL[col[i+1]]}
+    r.appendChild(el('span','lno',String(i+1)));var c=el('span','lc');c.innerHTML=l||' ';r.appendChild(c);pre.appendChild(r);
+  });
+  w.appendChild(pre);
+  if(notes.length){var ex=el('div','cex');notes.forEach(function(n,i){var r=el('div','cn'),bd=el('i',null,String(i+1));bd.style.background=PAL[i%PAL.length];r.appendChild(bd);var tx=el('span');tx.appendChild(el('b',null,'السطر '+n.lines+': '));lk(n.text||'',tx);r.appendChild(tx);ex.appendChild(r)});w.appendChild(ex)}
+  if(b.explain){var p=el('div','cx');lk(b.explain,p);w.appendChild(p)}
+  return w;
+}
+var cpT=0;
+function blockCp(e){
+  var t=e.target,n=(t&&t.nodeType===1)?t:(t&&t.parentElement);
+  if(n&&n.closest&&n.closest('input,textarea,select,[contenteditable="true"]'))return;
+  e.preventDefault();if(e.clipboardData)e.clipboardData.setData('text/plain','');
+  if(Date.now()-cpT>3000){cpT=Date.now();toast('النسخ غير متاح هنا، استخدم أزرار النسخ المخصصة')}
+}
+document.addEventListener('copy',blockCp,true);document.addEventListener('cut',blockCp,true);
+function renderContact(v){
+  v.appendChild(el('h2','sec','تواصل معي'));
+  var f=el('div','pf');
+  f.appendChild(el('div','hint','أرسل رسالتك وستصل مباشرة إلى لوحة الإدارة. يُرد عليك على بريد حسابك.'));
+  f.appendChild(el('label',null,'نوع الرسالة'));var sel=el('select');['استفسار','اقتراح','مشكلة تقنية','طلب تعاون'].forEach(function(t){var o=el('option',null,t);o.value=t;sel.appendChild(o)});f.appendChild(sel);
+  f.appendChild(el('label',null,'الرسالة'));var ta=el('textarea');ta.rows=6;ta.maxLength=2000;f.appendChild(ta);
+  var b=el('button','btn p','إرسال');b.style.width='100%';
+  b.onclick=async function(){
+    var t=ta.value.trim();if(t.length<5){toast('اكتب رسالة أوضح');return}
+    var last=0;try{last=Number(localStorage.getItem('lastmsg'))||0}catch(e){}
+    if(Date.now()-last<60000){toast('انتظر دقيقة بين الرسائل');return}
+    b.disabled=true;
+    try{await addDoc(collection(db,'khmsgs'),{uid:CU.uid,name:(UD&&UD.name)||'',email:CU.email,subject:sel.value,msg:t.slice(0,2000),t:Date.now(),read:false});try{localStorage.setItem('lastmsg',String(Date.now()))}catch(e){}ta.value='';toast('تم إرسال رسالتك')}catch(x){toast('تعذر الإرسال');console.error(x)}
+    b.disabled=false;
+  };
+  f.appendChild(b);v.appendChild(f);
+}
+function apiSteps(d){
+  var win=d==='windows',sep=win?'; ':' && ';
+  var R='https://github.com/public-apis/public-apis',T='https://api.open-meteo.com/v1/forecast?latitude=30.04&longitude=31.24&current_weather=true';
+  return [
+   {t:'ما هو مشروع Public APIs',d:'المشروع قائمة مفتوحة المصدر ومنسقة بآلاف الجهد من المساهمين، تجمع واجهات برمجية (APIs) مجانية مصنفة حسب المجال: طقس، أخبار، عملات، ذكاء اصطناعي، أمن، ألعاب وغيرها. هو ليس مكتبة تُثبَّت ولا خدمة بعينها، وإنما ملف README.md فيه جدول لكل API رابطه ووصفه وطريقة المصادقة. تستخدمه لتجد API مناسبًا ثم تتعامل مع مزوده مباشرة.',l:R},
+   {t:'تجهيز Git',d:'نحتاج Git لنسخ المستودع. لو نفذت خطوات الإعداد الأساسية لجهازك فهو مثبّت. تحقق من ذلك بالأمر التالي، وإن لم يظهر رقم إصدار ثبّته أولًا من صفحة الإعداد الأخرى. وبدون Git يمكنك فتح الرابط وتحميل ZIP من زر Code ثم Download ZIP.',c:'git --version'},
+   {t:'نسخ المستودع إلى جهازك',d:'ينسخ الأمر كل الملفات إلى مجلد public-apis ثم ندخل إليه. الحجم صغير لأنه نصوص في الغالب.',c:'git clone '+R+'.git'+sep+'cd public-apis'},
+   {t:'فهم الجدول',d:'افتح README.md. كل صف فيه خمسة أعمدة: API وهو الاسم والرابط، وDescription وهو الوصف، وAuth وهو نوع المصادقة (No يعني بلا مفتاح، وapiKey يعني مفتاحًا، وOAuth يعني تسجيل دخول)، وHTTPS هل يدعم اتصالًا آمنًا، وCORS هل يسمح باستدعائه من المتصفح مباشرة (Yes أو No أو Unknown).'},
+   {t:'البحث عن API بالكلمة',d:'بدل التمرير في الملف الطويل ابحث بكلمة تخص حاجتك، مثل weather أو currency أو news. الأمر يعرض الصفوف المطابقة فقط.',c:win?'Select-String -Path README.md -Pattern "weather"':'grep -i "weather" README.md'},
+   {t:'تصفية الأنسب للبداية',d:'ابدأ بما لا يحتاج مفتاحًا ويدعم HTTPS لأنه أسرع تجربة وأقل أخطاء. هذا الأمر يعرض صفوف الطقس التي مصادقتها No وHTTPS فيها Yes.',c:win?'Select-String -Path README.md -Pattern "weather" | Where-Object { $_.Line -match "\\| No \\| Yes \\|" }':'grep -i "weather" README.md | grep "| No | Yes |"'},
+   {t:'اختيار API بشكل صحيح',d:'قبل الاعتماد على أي API افتح صفحته وتحقق من: حدود الاستخدام (Rate Limit)، وشروط الاستخدام والترخيص خصوصًا للمشاريع التجارية، واستمرار الخدمة وآخر تحديث لها. لو ستستدعيه من صفحة ويب فاختر CORS = Yes، وإلا ستحتاج وسيطًا على خادم.'},
+   {t:'الحصول على مفتاح عند الحاجة',d:'لو كانت المصادقة apiKey: افتح رابط المزود، أنشئ حسابًا، ثم أنشئ مفتاحًا من لوحته. لا تكتب المفتاح داخل كود صفحة عامة ولا ترفعه إلى GitHub. خزّنه في متغير بيئة كما في الأمر، ثم أعد فتح الطرفية.',c:win?'setx MY_API_KEY "ضع_المفتاح_هنا"':'export MY_API_KEY="ضع_المفتاح_هنا"'},
+   {t:'تجربة API من الطرفية',d:'جرّب Open-Meteo كمثال، وهو API طقس بلا مفتاح ومذكور في القائمة. الأمر يعيد حالة الطقس الحالية لإحداثيات القاهرة بصيغة JSON. إن ظهر JSON فالتجربة نجحت.',c:(win?'curl.exe "':'curl "')+T+'"'},
+   {t:'استخدامه في صفحة ويب',d:'افتح أي صفحة في المتصفح واضغط F12 ثم تبويب Console والصق السطر التالي. يجلب الطقس ويطبعه. هذا يعمل فقط إن كان الـ API يسمح بـ CORS.',c:"fetch('"+T+"').then(function(r){return r.json()}).then(console.log)"},
+   {t:'توثيق ما تعلمته في مقال',d:'من لوحة الإدارة أضف المقال وادرج الكود عبر خيار إضافة كود برمجي، مع شرح الأسطر بالألوان. بهذا يصبح لموقعك مرجع خاص بالـ APIs التي جرّبتها.'},
+   {t:'تحديث القائمة والمساهمة',d:'القائمة تتغير باستمرار، فحدّثها من وقت لآخر من داخل مجلد المشروع. وإن وجدت API متوقفًا أو أردت إضافة واحد جديد فاقرأ ملف CONTRIBUTING في المستودع ثم افتح Pull Request.',c:'git pull'}
+  ];
+}
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){if($('nav').classList.contains('open'))toggleMenu();$('aip').classList.remove('open')}});
 async function countVisit(){try{await updateDoc(doc(db,'khmeta','stats'),{real:increment(1)})}catch(e){console.error(e)}}
 function startLive(u){
-  onSnapshot(doc(db,'khmeta','stats'),function(s){var d=s.exists()?s.data():{};setVis((Number(d.base)||0)+(Number(d.real)||0))},function(e){console.error(e)});
+  onSnapshot(doc(db,'khmeta','stats'),function(s){var d=s.exists()?s.data():{};setVis((Number(d.base)||0)+(Number(d.real)||0));showNotice(d.notice||'')},function(e){console.error(e)});
   var r=doc(db,'khpresence',u.uid);
   function beat(){setDoc(r,{t:Date.now()}).catch(function(){})}
   beat();setInterval(beat,45000);setInterval(paintOnl,20000);
@@ -629,7 +742,7 @@ window.saveComplete=async function(){
 async function checkProfile(u){
   CU=u;var d={};
   try{var s=await getDoc(doc(db,'kjbvv',u.uid));if(s.exists())d=s.data()}catch(e){console.error(e)}
-  UD=d;GK=d.geminiKey||'';GM=d.geminiModel||'';
+  UD=d;PREV=d.lastLogin||'';GK=d.geminiKey||'';GM=d.geminiModel||'';
   if(d.name&&d.username&&d.phone&&d.domains&&d.domains.length){go(u);return}
   $('cn').value=d.name||u.displayName||'';$('cu').value=d.username||'';$('cph').value=d.phone||'';chips($('cdg'),d.domains||[]);
   $('auth').style.display='none';$('cmp').style.display='flex';
@@ -658,9 +771,32 @@ async function renderProfile(v){
   var gm=el('input');gm.id='pgm';gm.dir='ltr';gm.value=(d.geminiModel&&!/^gemini-(1|2)/.test(d.geminiModel))?d.geminiModel:'gemini-3.8-flash';w.appendChild(gm);
   var gh=el('div','hint');gh.appendChild(document.createTextNode('عند إضافة المفتاح يظهر المساعد الذكي في كل صفحات المنصة. احصل على مفتاح من '));var ga=el('a',null,'Google AI Studio');ga.href='https://aistudio.google.com/apikey';ga.target='_blank';ga.rel='noopener';gh.appendChild(ga);gh.appendChild(document.createTextNode('. يُحفظ المفتاح في حسابك وتُرسل المحادثات من متصفحك مباشرة إلى Google. قيّد المفتاح من إعدادات Google قدر الإمكان.'));w.appendChild(gh);
   var gr=el('div','row');gr.style.marginBottom='14px';
-  var gs=el('button','btn p','حفظ المفتاح');gs.onclick=async function(){var k=gk.value.trim()||d.geminiKey||'';if(!k){toast('الصق المفتاح أولًا');return}try{await setDoc(doc(db,'kjbvv',u.uid),{geminiKey:k,geminiModel:gm.value.trim()||'gemini-3.8-flash'},{merge:true});d.geminiKey=k;GK=k;GM=gm.value.trim();UD.geminiKey=k;UD.geminiModel=GM;gk.value='';syncAI();toast('تم تفعيل المساعد الذكي')}catch(x){toast('تعذر الحفظ')}};
-  var gd=el('button','btn','حذف المفتاح');gd.onclick=async function(){try{await setDoc(doc(db,'kjbvv',u.uid),{geminiKey:''},{merge:true});d.geminiKey='';GK='';UD.geminiKey='';syncAI();toast('تم حذف المفتاح وإخفاء المساعد')}catch(x){toast('تعذر الحذف')}};
-  gr.appendChild(gs);gr.appendChild(gd);w.appendChild(gr);
+  var dl=el('datalist');dl.id='pgl';w.appendChild(dl);gm.setAttribute('list','pgl');
+  function fillDl(l){dl.innerHTML='';l.forEach(function(n){var o=el('option');o.value=n;dl.appendChild(o)})}
+  function setP(t,k){var e=$('pmsg');e.textContent=t;e.className='amsg '+k}
+  var gs=el('button','btn p','حفظ وتفعيل');
+  gs.onclick=async function(){
+    var k=gk.value.trim()||d.geminiKey||'';if(!k){toast('الصق المفتاح أولًا');return}
+    setP('جارِ التحقق من المفتاح...','in');
+    try{var l=await gModels(k);if(!l.length)throw new Error('لا توجد موديلات متاحة لهذا المفتاح');
+      var want=gm.value.trim(),pick=(want&&l.indexOf(want)>-1)?want:l[0];gm.value=pick;fillDl(l);
+      await setDoc(doc(db,'kjbvv',u.uid),{geminiKey:k,geminiModel:pick},{merge:true});
+      d.geminiKey=k;GK=k;GM=pick;AUTOM=null;MODELS=l;UD.geminiKey=k;UD.geminiModel=pick;gk.value='';syncAI();
+      setP('تم التحقق وتفعيل المساعد بالموديل '+pick,'ok');toast('تم تفعيل المساعد الذكي');
+    }catch(x){setP('تعذر تفعيل المفتاح: '+x.message,'er')}
+  };
+  var gt=el('button','btn','اختبار الاتصال');
+  gt.onclick=async function(){
+    var k=gk.value.trim()||d.geminiKey||'';if(!k){toast('الصق المفتاح أولًا');return}
+    setP('جارِ الاختبار...','in');
+    try{var l=await gModels(k);fillDl(l);var m=gm.value.trim()||l[0];
+      var r=await gem(m,JSON.stringify({contents:[{role:'user',parts:[{text:'اكتب كلمة واحدة: مرحبا'}]}]}),k),j=await r.json();
+      if(!r.ok)throw new Error((j.error&&j.error.message)||('HTTP '+r.status)+' - الموديل: '+m);
+      setP('الاتصال يعمل بالموديل '+m+'. الموديلات المتاحة: '+l.slice(0,6).join('، '),'ok');
+    }catch(x){setP('فشل الاختبار: '+x.message,'er')}
+  };
+  var gd=el('button','btn','حذف المفتاح');gd.onclick=async function(){try{await setDoc(doc(db,'kjbvv',u.uid),{geminiKey:''},{merge:true});d.geminiKey='';GK='';AUTOM=null;MODELS=null;UD.geminiKey='';syncAI();toast('تم حذف المفتاح وإخفاء المساعد')}catch(x){toast('تعذر الحذف')}};
+  gr.appendChild(gs);gr.appendChild(gt);gr.appendChild(gd);w.appendChild(gr);
   var m=el('div','amsg');m.id='pmsg';w.appendChild(m);
   var r=el('div','row');
   var sv=el('button','btn p','حفظ التعديلات');sv.onclick=async function(){
