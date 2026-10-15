@@ -216,6 +216,12 @@ h2{scroll-margin-top:90px}
 .cx{padding:10px 12px;border-top:1px solid var(--b);font-size:13px;color:#cfcfcf;line-height:1.9}
 .hljs-keyword,.hljs-selector-tag,.hljs-literal,.hljs-doctag{color:#c792ea}.hljs-string,.hljs-regexp,.hljs-addition{color:#c3e88d}.hljs-number,.hljs-symbol,.hljs-bullet{color:#f78c6c}.hljs-comment,.hljs-quote{color:#6a737d;font-style:italic}.hljs-title,.hljs-section{color:#82aaff}.hljs-built_in,.hljs-type{color:#ffcb6b}.hljs-attr,.hljs-attribute,.hljs-variable,.hljs-template-variable,.hljs-property{color:#89ddff}.hljs-meta,.hljs-tag,.hljs-name{color:#f07178}
 .pf select{width:100%;padding:10px 12px;margin-bottom:10px;background:rgba(0,0,0,.45);border:1px solid var(--b);border-radius:10px;color:#fff;font-family:inherit;font-size:13px}
+
+.acts{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}.acts button{padding:3px 10px;border-radius:8px;border:1px solid var(--b);background:rgba(255,255,255,.07);color:#ddd;font-family:inherit;font-size:11px;cursor:pointer}.acts button:hover{border-color:var(--a)}
+.aprev{display:none;align-items:center;gap:8px;padding:0 12px 6px;font-size:11.5px;color:var(--t2)}.aprev.on{display:flex}.aprev img{height:44px;border-radius:8px}
+.am img{max-width:100%;max-height:160px;border-radius:8px;display:block;margin-bottom:6px}
+#amode{background:rgba(0,0,0,.45);border:1px solid var(--b);border-radius:8px;color:#fff;font-family:inherit;font-size:11.5px;padding:4px 6px;margin-right:auto;margin-left:8px}
+.aif .btn{padding:8px 10px;font-size:12px}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Kufam:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -254,6 +260,7 @@ h2{scroll-margin-top:90px}
     <a href="#/setup" data-r="setup">ضبط الذكاء الاصطناعي</a>
     <a href="#/profile" data-r="profile">الملف الشخصي</a>
     <a href="#/saved" data-r="saved">المحفوظات</a>
+    <a href="#/notes" data-r="notes">ملاحظاتي</a>
     <a href="#/apis" data-r="apis">دليل الـ APIs</a>
     <a href="#/contact" data-r="contact">تواصل معي</a>
     <button onclick="doSignOut()">تسجيل الخروج</button>
@@ -266,7 +273,7 @@ h2{scroll-margin-top:90px}
 <div id="btm"><a href="#/" data-r="home"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 11l9-8 9 8M5 10v10h14V10"/></svg>الرئيسية</a><a href="#/blog" data-r="blog"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4h16v16H4zM8 9h8M8 13h8M8 17h5"/></svg>المدونة</a><a href="#/projects" data-r="projects"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 7h18v13H3zM8 7V4h8v3"/></svg>المشاريع</a><a href="#/news" data-r="news"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 5h13v14H6a2 2 0 0 1-2-2zM17 9h3v8a2 2 0 0 1-2 2M8 9h6M8 13h6"/></svg>الأخبار</a><a href="#/setup" data-r="setup"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 17l6-6-6-6M12 19h8"/></svg>الإعداد</a></div>
 <div id="rp"></div>
 <button class="aib" id="aib" onclick="toggleAi()" aria-label="المساعد الذكي"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></button>
-<div id="aip"><div class="aih"><b>المساعد الذكي</b><button onclick="toggleAi()" aria-label="إغلاق">x</button></div><div id="aim"></div><div class="aic" id="aic"></div><div class="aif"><input id="aiq" placeholder="اسألني عن أي شيء في المنصة" onkeydown="if(event.key==='Enter')aiSend()"><button class="btn p" onclick="aiSend()">إرسال</button></div></div>
+<div id="aip"><div class="aih"><b>المساعد الذكي</b><select id="amode" onchange="aiMode()"><option value="gen">مساعد عام</option><option value="debug">حل المشكلات</option><option value="tutor">مدرّس</option><option value="writer">كاتب</option></select><button onclick="toggleAi()" aria-label="إغلاق">x</button></div><div id="aim"></div><div class="aic" id="aic"></div><div class="aprev" id="aprev"></div><div class="aif"><button class="btn" onclick="$('aimg').click()">صورة</button><button class="btn" onclick="aiMic()">صوت</button><input id="aiq" placeholder="اسألني أو أرفق صورة" onkeydown="if(event.key==='Enter')aiSend()"><button class="btn p" onclick="aiSend()">إرسال</button></div><input type="file" id="aimg" accept="image/*" style="display:none" onchange="aiPick(this.files[0])"></div>
 <button class="totop" id="top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="للأعلى"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 15l6-6 6 6"/></svg></button>
 
 <footer><div class="fl"><a class="in" href="https://www.linkedin.com/in/khaled-ahmed-241002386" target="_blank" rel="noopener"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.8-2 4 0 4.8 2.6 4.8 6V21h-4v-5c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.7V21h-4z"/></svg>تابعني على LinkedIn</a></div><div class="vis" style="margin:0 0 6px">عدد الزوار: <b class="vcn" style="font-size:15px">0</b> - متصل الآن: <b class="onn" style="font-size:15px">0</b></div><div><a class="lnk" href="#/contact">تواصل معي</a></div><div>جميع الحقوق محفوظة</div></footer>
@@ -395,7 +402,7 @@ function renderItem(v,id){
   var sb=el('button','btn');function svT(){var on=hasArr('saved',id);sb.textContent=on?'محفوظ':'حفظ لوقت لاحق';sb.className='btn'+(on?' p':'')}
   svT();sb.onclick=async function(){var on=await toggleArr('saved',id);svT();toast(on?'تمت الإضافة إلى المحفوظات':'أُزيل من المحفوظات')};
   sh.appendChild(lb);sh.appendChild(sb);
-  if(GK){var ab=el('button','btn','لخّص بالذكاء الاصطناعي');ab.onclick=function(){$('aip').classList.add('open');aiAsk('لخّص هذا المقال في نقاط قصيرة')};sh.appendChild(ab)}
+  if(GK){var ab=el('button','btn','لخّص بالذكاء الاصطناعي');ab.onclick=function(){aiInline(it,a,sh)};sh.appendChild(ab)}
   if(window.speechSynthesis){var sp=el('button','btn','استمع'),spOn=false;sp.onclick=function(){if(spOn){speechSynthesis.cancel();spOn=false;sp.textContent='استمع';return}var u2=new SpeechSynthesisUtterance(it.title+'. '+bodyText(it.body));u2.lang='ar-SA';u2.onend=function(){spOn=false;sp.textContent='استمع'};speechSynthesis.speak(u2);spOn=true;sp.textContent='إيقاف'};sh.appendChild(sp)}
   var fa=el('button','btn','A+'),fm=el('button','btn','A-');
   function fz(d2){var c=parseFloat(document.documentElement.style.getPropertyValue('--fz'))||1;c=Math.max(.85,Math.min(1.6,c+d2));document.documentElement.style.setProperty('--fz',String(c));try{localStorage.setItem('fz',String(c))}catch(e){}}
@@ -484,7 +491,7 @@ function renderSetup(v){
     b.appendChild(el('p',null,s.d));
     var sk2='khs'+gPage+gDev+gTool+i,dn=false;try{dn=localStorage.getItem(sk2)==='1'}catch(e){}
     if(dn)b.classList.add('dn');
-    var tb=el('button','tgl',dn?'منفذة':'تم التنفيذ');tb.onclick=function(){dn=!dn;try{localStorage.setItem(sk2,dn?'1':'0')}catch(e){}b.classList.toggle('dn',dn);tb.textContent=dn?'منفذة':'تم التنفيذ';updProg()};b.appendChild(tb);
+    var tb=el('button','tgl',dn?'منفذة':'تم التنفيذ');tb.onclick=function(){dn=!dn;try{localStorage.setItem(sk2,dn?'1':'0')}catch(e){}b.classList.toggle('dn',dn);tb.textContent=dn?'منفذة':'تم التنفيذ';updProg()};b.appendChild(tb);if(GK){var hp=el('button','tgl','واجهتني مشكلة');hp.onclick=function(){aiHelp(s,i)};b.appendChild(hp)}
     if(s.l){var a=el('a','btn p','فتح الرابط');a.href=s.l;a.target='_blank';a.rel='noopener';b.appendChild(a)}
     if(s.c){var c=el('div','cmd');c.appendChild(el('span',null,s.c));var bt=el('button',null,'نسخ');bt.onclick=function(){navigator.clipboard.writeText(s.c).then(function(){bt.textContent='تم'})};c.appendChild(bt);b.appendChild(c)}
     v.appendChild(b);
@@ -505,13 +512,14 @@ function route(){
   else if(h.indexOf('#/setup')===0){r='setup';gPage='setup';renderSetup(v)}
   else if(h.indexOf('#/apis')===0){r='apis';gPage='apis';renderSetup(v)}
   else if(h.indexOf('#/contact')===0){r='contact';renderContact(v)}
+  else if(h.indexOf('#/notes')===0){r='notes';renderNotes(v)}
   else if(h.indexOf('#/profile')===0){r='profile';renderProfile(v)}
   else if(h.indexOf('#/saved')===0){r='saved';renderSaved(v)}
   else if(h.indexOf('#/item/')===0){r='';renderItem(v,h.slice(7))}
   else renderHome(v);
   document.querySelectorAll('#nav a,#btm a').forEach(function(a){a.classList.toggle('on',a.dataset.r===r)});
   window.scrollTo(0,0);
-  setTimeout(observe,30);
+  setTimeout(observe,30);if(GK)aiChips();
 }
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('show');io.unobserve(e.target)}})},{threshold:.08});
 function observe(){document.querySelectorAll('.rv:not(.show)').forEach(function(n){io.observe(n)})}
@@ -554,7 +562,7 @@ window.doRegister=async function(){
 window.resendV=async function(){var u=auth.currentUser;if(!u){am('سجّل الدخول أولًا ثم أعد المحاولة.','er');return}try{await sendEmailVerification(u);am('تم إرسال رابط التفعيل.','ok')}catch(x){am(x.code==='auth/too-many-requests'?'محاولات كثيرة، انتظر قليلًا.':x.message,'er')}};
 window.forgot=async function(){var e=$('le').value.trim();if(!e){am('أدخل بريدك أولًا.','er');return}try{await sendPasswordResetEmail(auth,e);am('تم إرسال رابط إعادة التعيين إلى بريدك.','ok')}catch(x){am(x.message||x.code,'er')}};
 window.doSignOut=async function(){if($('nav').classList.contains('open'))toggleMenu();await signOut(auth);location.hash='#/'};
-var VIS=null,VD=0,CU=null,UD={},GK='',GM='',HIST=[],PRES=[],PREV='',NOTICE='';
+var VIS=null,VD=0,CU=null,UD={},GK='',GM='',HIST=[],PRES=[],PREV='',NOTICE='',AIMG=null,AIMODE='gen';
 function showNotice(t){NOTICE=t;var e=$('nb'),x='';try{x=sessionStorage.getItem('nbx')||''}catch(er){}if(!t||x===t){e.style.display='none';return}e.firstChild.textContent=t;e.style.display='flex'}
 window.closeNb=function(){try{sessionStorage.setItem('nbx',NOTICE)}catch(e){}$('nb').style.display='none'};
 function paintVis(){document.querySelectorAll('.vcn').forEach(function(e){e.textContent=VD.toLocaleString('ar-EG')})}
@@ -592,7 +600,7 @@ function aiCtx(){
   c+='فهرس المحتوى:\n'+ITEMS.slice(0,40).map(function(i){return '- ['+(TYPES[i.type]||'')+'] '+i.title+' => #/item/'+i.id}).join('\n');
   return c;
 }
-function aiSys(){return 'أنت مساعد داخل منصة Khaled Ahmed. اسم المستخدم: '+((UD&&UD.name)||'')+'. أجب بالعربية وباختصار ووضوح، واعتمد على سياق الصفحة والفهرس أدناه، ولا تخترع محتوى غير موجود. للتنقل أضف في ردك [[go:المسار]] ومن المسارات: #/ و #/blog و #/projects و #/news و #/setup و #/profile و #/saved و #/item/ID.\n\n'+aiCtx()}
+function aiSys(){return 'أنت مساعد داخل منصة Khaled Ahmed. اسم المستخدم: '+((UD&&UD.name)||'')+'. أجب بالعربية وباختصار ووضوح، واعتمد على سياق الصفحة والفهرس أدناه، ولا تخترع محتوى غير موجود. للتنقل أضف في ردك [[go:المسار]] ومن المسارات: #/ و #/blog و #/projects و #/news و #/setup و #/apis و #/contact و #/profile و #/saved و #/notes و #/item/ID.\n'+(MODES[AIMODE]||'')+'\n\n'+aiCtx()}
 function setMsg(n,t){
   n.innerHTML='';var re=/\[\[go:([^\]]+)\]\]/g,last=0,m;
   while((m=re.exec(t))){if(m.index>last)n.appendChild(document.createTextNode(t.slice(last,m.index)));
@@ -619,33 +627,14 @@ async function pickModel(){
   }catch(e){console.error(e)}
   return DEFM;
 }
-async function aiAsk(q){
-  if(!GK){toast('أضف مفتاح Gemini من الملف الشخصي');return}
-  addMsg('user',q);HIST.push({role:'user',parts:[{text:q}]});
-  var w=addMsg('bot','جارِ التفكير...'),h=HIST.slice(-11);while(h.length&&h[0].role!=='user')h.shift();
-  try{
-    var bd=JSON.stringify({system_instruction:{parts:[{text:aiSys()}]},contents:h});
-    var first=AUTOM||((GM&&!/^gemini-(1|2)/.test(GM))?GM:DEFM),r,j;
-    async function tryM(m){r=await gem(m,bd);j=await r.json();return r.ok}
-    var ok=await tryM(first);
-    if(!ok&&r.status!==401&&r.status!==403&&!/api key|API_KEY/i.test(JSON.stringify(j.error||{}))){
-      try{MODELS=MODELS||await gModels(GK)}catch(e){MODELS=[]}
-      var n=0;for(var i=0;i<MODELS.length&&n<4&&!ok;i++){if(MODELS[i]===first)continue;n++;ok=await tryM(MODELS[i]);if(ok)AUTOM=MODELS[i]}
-    }
-    if(!ok)throw new Error((j.error&&j.error.message)||('HTTP '+r.status));
-    var cd=j.candidates&&j.candidates[0],t=((cd&&cd.content&&cd.content.parts)||[]).map(function(p){return p.text||''}).join('');
-    if(!t)t=(j.promptFeedback&&j.promptFeedback.blockReason)?'تم حجب الطلب من Gemini: '+j.promptFeedback.blockReason:'لم أحصل على رد'+(cd&&cd.finishReason?' ('+cd.finishReason+')':'');
-    HIST.push({role:'model',parts:[{text:t}]});setMsg(w,t);
-  }catch(e){HIST.pop();setMsg(w,'تعذر الاتصال بـ Gemini: '+e.message+(/Failed to fetch|NetworkError|Load failed/i.test(e.message)?' (تأكد من الإنترنت أو عطّل حاجب الإعلانات لهذا الموقع)':''))}
-}
-window.aiSend=function(){var i=$('aiq'),q=i.value.trim();if(!q)return;i.value='';aiAsk(q)};
+window.aiSend=function(){var i=$('aiq'),q=i.value.trim();if(!q&&!AIMG)return;if(!q)q='حلّل هذه الصورة وساعدني';i.value='';aiAsk(q)};
 window.toggleAi=function(){$('aip').classList.toggle('open')};
 function syncAI(){
   var on=!!GK;$('aib').style.display=on?'flex':'none';
   if(!on){$('aip').classList.remove('open');HIST=[];$('aim').innerHTML='';$('aic').innerHTML='';return}
   if(!$('aim').children.length){
     addMsg('bot','مرحبًا، أنا مساعدك داخل المنصة. أستطيع شرح هذه الصفحة وتلخيص المقالات ومساعدتك في خطوات الإعداد والتنقل. اسألني.');
-    var c=$('aic');c.innerHTML='';['لخّص هذه الصفحة','ماذا أقرأ أولًا؟','ساعدني في خطوات الإعداد'].forEach(function(t){var s=el('span',null,t);s.onclick=function(){aiAsk(t)};c.appendChild(s)});
+    aiChips();
   }
 }
 window.syncAI=syncAI;
@@ -661,7 +650,7 @@ function hlLines(code,lang){
 function codeBlock(b){
   var w=el('div','code'),h=el('div','ch');h.appendChild(el('span','cl2',(b.lang||'code').toUpperCase()));if(b.title)h.appendChild(el('b',null,b.title));
   var cp=el('button','cpb','نسخ الكود');cp.onclick=function(){navigator.clipboard.writeText(String(b.code)).then(function(){cp.textContent='تم النسخ';setTimeout(function(){cp.textContent='نسخ الكود'},1800)},function(){toast('تعذر النسخ')})};
-  h.appendChild(cp);w.appendChild(h);
+  if(GK){var eb=el('button','cpb','اشرح بالذكاء الاصطناعي');eb.style.marginRight='auto';eb.onclick=function(){aiOpen();aiAsk('اشرح هذا الكود سطرًا سطرًا ثم اذكر التعقيد وأي أخطاء محتملة:\n'+String(b.code).slice(0,4000))};h.appendChild(eb);cp.style.marginRight='0'}h.appendChild(cp);w.appendChild(h);
   var notes=Array.isArray(b.notes)?b.notes:[],col={};
   notes.forEach(function(n,i){Object.keys(lineSet(n.lines)).forEach(function(k){col[k]=i%PAL.length})});
   var pre=el('div','cpre');
@@ -716,6 +705,81 @@ function apiSteps(d){
    {t:'توثيق ما تعلمته في مقال',d:'من لوحة الإدارة أضف المقال وادرج الكود عبر خيار إضافة كود برمجي، مع شرح الأسطر بالألوان. بهذا يصبح لموقعك مرجع خاص بالـ APIs التي جرّبتها.'},
    {t:'تحديث القائمة والمساهمة',d:'القائمة تتغير باستمرار، فحدّثها من وقت لآخر من داخل مجلد المشروع. وإن وجدت API متوقفًا أو أردت إضافة واحد جديد فاقرأ ملف CONTRIBUTING في المستودع ثم افتح Pull Request.',c:'git pull'}
   ];
+}
+async function gCall(contents,system){
+  var bd=JSON.stringify({system_instruction:{parts:[{text:system}]},contents:contents});
+  var first=AUTOM||((GM&&!/^gemini-(1|2)/.test(GM))?GM:DEFM),r,j;
+  async function tryM(m){r=await gem(m,bd);j=await r.json();return r.ok}
+  var ok=await tryM(first);
+  if(!ok&&r.status!==401&&r.status!==403&&!/api key|API_KEY/i.test(JSON.stringify(j.error||{}))){
+    try{MODELS=MODELS||await gModels(GK)}catch(e){MODELS=[]}
+    var n=0;for(var i=0;i<MODELS.length&&n<4&&!ok;i++){if(MODELS[i]===first)continue;n++;ok=await tryM(MODELS[i]);if(ok)AUTOM=MODELS[i]}
+  }
+  if(!ok)throw new Error((j.error&&j.error.message)||('HTTP '+r.status));
+  var cd=j.candidates&&j.candidates[0],t=((cd&&cd.content&&cd.content.parts)||[]).map(function(p){return p.text||''}).join('');
+  if(!t)t=(j.promptFeedback&&j.promptFeedback.blockReason)?'تم حجب الطلب من Gemini: '+j.promptFeedback.blockReason:'لم أحصل على رد'+(cd&&cd.finishReason?' ('+cd.finishReason+')':'');
+  return t;
+}
+var MODES={gen:'',debug:'وضع حل المشكلات: اطلب المعلومات الناقصة باختصار، ثم اذكر السبب المحتمل واعرض الحل خطوات مرقمة قصيرة مع الأوامر، ثم بيّن كيف يتأكد المستخدم أن المشكلة حُلّت. إن أُرفقت صورة فاقرأ رسالة الخطأ منها بدقة.',tutor:'وضع المدرّس: اشرح ببساطة وبأمثلة، ثم اطرح سؤال تحقق واحد، وصحّح إجابة المستخدم بلطف.',writer:'وضع الكاتب: حسّن النص العربي المرسل أو اكتب مسودة منظمة دون تغيير المعنى، واذكر ما غيّرته باختصار.'};
+window.aiMode=function(){AIMODE=$('amode').value};
+window.aiOpen=function(){$('aip').classList.add('open')};
+function aprevUpd(){var p=$('aprev');p.innerHTML='';if(!AIMG){p.classList.remove('on');return}var i=el('img');i.src=AIMG.url;var x=el('button','btn','x');x.onclick=function(){AIMG=null;aprevUpd()};p.appendChild(i);p.appendChild(el('span',null,'صورة مرفقة'));p.appendChild(x);p.classList.add('on')}
+window.aiPick=function(f){
+  if(!f||!/^image\//.test(f.type)){toast('اختر ملف صورة');return}
+  var url=URL.createObjectURL(f),im=new Image();
+  im.onload=function(){var s=Math.min(1,1280/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext('2d').drawImage(im,0,0,c.width,c.height);var d=c.toDataURL('image/jpeg',.82);AIMG={mime:'image/jpeg',data:d.split(',')[1],url:d};URL.revokeObjectURL(url);aprevUpd();toast('تم إرفاق الصورة')};
+  im.onerror=function(){toast('تعذر قراءة الصورة')};im.src=url;$('aimg').value='';
+};
+$('aiq').addEventListener('paste',function(e){var f=e.clipboardData&&Array.prototype.filter.call(e.clipboardData.files,function(x){return /^image\//.test(x.type)})[0];if(f){e.preventDefault();aiPick(f)}});
+$('aip').addEventListener('dragover',function(e){e.preventDefault()});
+$('aip').addEventListener('drop',function(e){e.preventDefault();var f=e.dataTransfer.files[0];if(f)aiPick(f)});
+window.aiMic=function(){var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){toast('المتصفح لا يدعم الإدخال الصوتي');return}var r=new SR();r.lang='ar-EG';r.onresult=function(e){$('aiq').value=e.results[0][0].transcript};r.onerror=function(){toast('تعذر التقاط الصوت')};r.start();toast('تكلّم الآن')};
+async function saveNote(title,id,text){UD.notes=(UD.notes||[]).concat([{id:id||'',title:title||'',text:String(text).slice(0,4000),t:Date.now()}]).slice(-30);try{await setDoc(doc(db,'kjbvv',CU.uid),{notes:UD.notes},{merge:true});toast('تم الحفظ في ملاحظاتي')}catch(e){toast('تعذر الحفظ')}}
+function curItem(){var h=location.hash||'';return h.indexOf('#/item/')===0?ITEMS.filter(function(x){return x.id===h.slice(7)})[0]:null}
+function addActs(w,t){var ac=el('div','acts'),c=el('button',null,'نسخ'),s=el('button',null,'حفظ في ملاحظاتي');c.onclick=function(){navigator.clipboard.writeText(t).then(function(){toast('تم النسخ')})};s.onclick=function(){var it=curItem();saveNote(it?it.title:'محادثة المساعد',it?it.id:'',t)};ac.appendChild(c);ac.appendChild(s);w.appendChild(ac)}
+async function aiAsk(q){
+  if(!GK){toast('أضف مفتاح Gemini من الملف الشخصي');return}
+  var img=AIMG;AIMG=null;aprevUpd();
+  var um=addMsg('user',q);if(img){var im=el('img');im.src=img.url;um.insertBefore(im,um.firstChild)}
+  var parts=[{text:q}];if(img)parts.unshift({inline_data:{mime_type:img.mime,data:img.data}});
+  HIST.push({role:'user',parts:parts});
+  var w=addMsg('bot','جارِ التفكير...'),h=HIST.slice(-11).map(function(m,i,arr){return i===arr.length-1?m:{role:m.role,parts:m.parts.map(function(p){return p.inline_data?{text:'[صورة سابقة]'}:p})}});
+  while(h.length&&h[0].role!=='user')h.shift();
+  try{var t=await gCall(h,aiSys());HIST.push({role:'model',parts:[{text:t}]});setMsg(w,t);addActs(w,t)}
+  catch(e){HIST.pop();setMsg(w,'تعذر الاتصال بـ Gemini: '+e.message+(/Failed to fetch|NetworkError|Load failed/i.test(e.message)?' (تأكد من الإنترنت أو عطّل حاجب الإعلانات لهذا الموقع)':''))}
+}
+function aiHelp(s,i){AIMODE='debug';$('amode').value='debug';aiOpen();var q=$('aiq');q.value='واجهتني مشكلة في الخطوة '+(i+1)+' ('+s.t+')'+(s.c?' عند تنفيذ الأمر: '+s.c:'')+'. المشكلة هي: ';q.focus();toast('اكتب المشكلة أو أرفق صورة للخطأ ثم أرسل')}
+function aiChips(){
+  var c=$('aic');if(!GK||!c)return;c.innerHTML='';
+  var h=location.hash||'#/',L=['لخّص هذه الصفحة','ماذا أقرأ أولًا؟'];
+  if(h.indexOf('#/item/')===0){var it=curItem();L=['لخّص المقال','اشرح بتبسيط','اختبرني بـ5 أسئلة','استخرج النقاط الرئيسية','ترجم الملخص للإنجليزية'];if(it&&/"code"\s*:/.test(it.body||''))L.push('اشرح الأكواد')}
+  else if(h.indexOf('#/setup')===0||h.indexOf('#/apis')===0)L=['اشرح الخطوة الحالية','واجهتني مشكلة','هل أحتاج كل هذه الخطوات؟'];
+  L.forEach(function(t){var s=el('span',null,t);s.onclick=function(){aiAsk(t)};c.appendChild(s)});
+}
+async function aiInline(it,a,sh){
+  var old=document.getElementById('aisum');if(old)old.remove();
+  var c=el('div','box note');c.id='aisum';var bh=el('div','bh');bh.appendChild(el('span','bt','ملخص بالذكاء الاصطناعي'));c.appendChild(bh);
+  var tx=el('div');tx.style.cssText='white-space:pre-wrap;line-height:1.9;font-size:14px';tx.textContent='جارِ التلخيص...';c.appendChild(tx);a.insertBefore(c,sh.nextSibling);
+  try{
+    var t=await gCall([{role:'user',parts:[{text:'لخّص المقال التالي بالعربية في: فقرة قصيرة، ثم 5 نقاط رئيسية، ثم 3 دروس مستفادة.\n\nالعنوان: '+it.title+'\n'+bodyText(it.body).slice(0,12000)}]}],'أنت ملخّص دقيق. لا تضف معلومات غير موجودة في النص.');
+    tx.textContent=t;var ac=el('div','acts'),b1=el('button',null,'نسخ'),b2=el('button',null,'حفظ في ملاحظاتي'),b3=el('button',null,'إغلاق');
+    b1.onclick=function(){navigator.clipboard.writeText(t).then(function(){toast('تم النسخ')})};b2.onclick=function(){saveNote(it.title,it.id,t)};b3.onclick=function(){c.remove()};
+    ac.appendChild(b1);ac.appendChild(b2);ac.appendChild(b3);c.appendChild(ac);
+  }catch(e){tx.textContent='تعذر التلخيص: '+e.message}
+}
+function renderNotes(v){
+  v.appendChild(el('h2','sec','ملاحظاتي'));
+  var l=(UD.notes||[]).slice().reverse();
+  if(!l.length)v.appendChild(el('div','empty','لا توجد ملاحظات. احفظ أي رد من المساعد الذكي لتظهر هنا.'));
+  l.forEach(function(n){
+    var c=el('div','pf');c.style.cssText='max-width:none;margin-bottom:12px';
+    c.appendChild(el('b',null,n.title||'ملاحظة'));c.appendChild(el('div','date',ftime(n.t)));
+    var tx=el('div');tx.style.cssText='white-space:pre-wrap;line-height:1.9;margin:8px 0;font-size:13px';tx.textContent=n.text;c.appendChild(tx);
+    var ac=el('div','acts'),b1=el('button',null,'نسخ'),b3=el('button',null,'حذف');
+    b1.onclick=function(){navigator.clipboard.writeText(n.text).then(function(){toast('تم النسخ')})};
+    b3.onclick=async function(){UD.notes=(UD.notes||[]).filter(function(x){return x.t!==n.t});try{await setDoc(doc(db,'kjbvv',CU.uid),{notes:UD.notes},{merge:true})}catch(e){}route()};
+    ac.appendChild(b1);if(n.id){var o=el('button',null,'فتح المقال');o.onclick=function(){location.hash='#/item/'+n.id};ac.appendChild(o)}ac.appendChild(b3);c.appendChild(ac);v.appendChild(c);
+  });
 }
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){if($('nav').classList.contains('open'))toggleMenu();$('aip').classList.remove('open')}});
 async function countVisit(){try{await updateDoc(doc(db,'khmeta','stats'),{real:increment(1)})}catch(e){console.error(e)}}
