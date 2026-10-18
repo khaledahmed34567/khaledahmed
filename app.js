@@ -612,6 +612,7 @@ function renderAuthor(v,id){
 }
 /* ---- PDF reader ---- */
 var PDFJS='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js',PDFW='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js',RD={z:1,doc:null,io:null};
+var PDFOPT={standardFontDataUrl:'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/standard_fonts/',cMapUrl:'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/cmaps/',cMapPacked:true,useSystemFonts:false,disableFontFace:true};
 function loadScript(u){return new Promise(function(ok,no){var s=document.createElement('script');s.src=u;s.onload=ok;s.onerror=function(){no(new Error('تعذر تحميل مكتبة العرض'))};document.head.appendChild(s)})}
 async function ensurePdf(){if(window.pdfjsLib&&pdfjsLib.GlobalWorkerOptions.workerSrc)return;if(!window.pdfjsLib)await loadScript(PDFJS);var t=await (await fetch(PDFW)).text();pdfjsLib.GlobalWorkerOptions.workerSrc=URL.createObjectURL(new Blob([t],{type:'text/javascript'}))}
 window.openReader=async function(b){
@@ -623,8 +624,8 @@ window.openReader=async function(b){
   var ld=$('rdl');ld.style.display='flex';ld.firstChild.textContent='جارِ تجهيز الكتاب...';
   try{
     await ensurePdf();
-    if(b.pdfUrl){RD.doc=await pdfjsLib.getDocument({url:b.pdfUrl}).promise}
-    else{var blob=await loadFile(b.fileId,function(p){ld.firstChild.textContent='جارِ تحميل الكتاب '+Math.round(p*100)+'%'});var buf=new Uint8Array(await blob.arrayBuffer());RD.doc=await pdfjsLib.getDocument({data:buf}).promise}
+    if(b.pdfUrl){RD.doc=await pdfjsLib.getDocument(Object.assign({url:b.pdfUrl},PDFOPT)).promise}
+    else{var blob=await loadFile(b.fileId,function(p){ld.firstChild.textContent='جارِ تحميل الكتاب '+Math.round(p*100)+'%'});var buf=new Uint8Array(await blob.arrayBuffer());RD.doc=await pdfjsLib.getDocument(Object.assign({data:buf},PDFOPT)).promise}
     RD.z=1;ld.style.display='none';await drawPages();var sp0=0;try{sp0=Number(localStorage.getItem('bp'+RD.id))||0}catch(e){}if(sp0>1){var cc=$('rdb').children[sp0-1];if(cc)cc.scrollIntoView()}
   }catch(e){console.error(e);ld.firstChild.textContent='تعذر فتح الكتاب: '+e.message+(b.pdfUrl?' (قد تمنع استضافة الملف عرضه داخل المنصة، فتحتاج استضافة تدعم CORS أو ارفع الملف من لوحة الإدارة)':'')}
 };
@@ -789,6 +790,16 @@ async function checkProfile(u){
   CU=u;var d={};
   try{var s=await getDoc(doc(db,'kjbvv',u.uid));if(s.exists())d=s.data()}catch(e){console.error(e)}
   UD=d;PREV=d.lastLogin||'';GK=d.geminiKey||'';GM=d.geminiModel||'';
+  var isG=(u.providerData||[]).some(function(p){return p.providerId==='google.com'});
+  if(isG){
+    if(!(d.name&&d.username&&d.createdAt)){
+      var em=(u.email||'').split('@')[0];
+      var nd={uid:u.uid,name:d.name||u.displayName||em,username:d.username||em,email:u.email,phone:d.phone||'',domains:d.domains||[],photoURL:u.photoURL||'',provider:'google',emailVerified:true};
+      if(!d.createdAt)nd.createdAt=new Date().toISOString();
+      try{await setDoc(doc(db,'kjbvv',u.uid),nd,{merge:true});d=Object.assign({},d,nd);UD=d}catch(e){console.error(e)}
+    }
+    go(u);return;
+  }
   if(d.name&&d.username&&d.phone&&d.domains&&d.domains.length){go(u);return}
   $('cn').value=d.name||u.displayName||'';$('cu').value=d.username||'';$('cph').value=d.phone||'';chips($('cdg'),d.domains||[]);
   $('splash').style.display='none';$('auth').style.display='none';$('cmp').style.display='flex';
