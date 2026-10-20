@@ -819,6 +819,28 @@ function renderPopular(v){
   l.forEach(function(i){g.appendChild(card(i))});v.appendChild(g);
 }
 document.addEventListener('keydown',function(e){if(e.key==='/'&&started&&!/INPUT|TEXTAREA|SELECT/.test((document.activeElement||{}).tagName||'')){e.preventDefault();openSearch()}});
+var ALOGIN=location.hash.indexOf('#/applogin')===0;
+function initAppLogin(){
+  var o=el('div');o.id='alogin';
+  o.appendChild(el('div','lg alogo'));
+  o.appendChild(el('h3',null,'تسجيل الدخول إلى التطبيق'));
+  var st=el('p','hint','اضغط الزر لاختيار حساب Google ثم ارجع إلى التطبيق.');o.appendChild(st);
+  var b=el('button','btn p','المتابعة بحساب Google');o.appendChild(b);
+  var back=el('a','btn');back.style.display='none';o.appendChild(back);
+  document.body.appendChild(o);$('splash').style.display='none';
+  b.onclick=async function(){
+    b.disabled=true;st.textContent='جارِ فتح Google...';
+    try{
+      var res=await signInWithPopup(auth,new GoogleAuthProvider());
+      var cr=GoogleAuthProvider.credentialFromResult(res);
+      var link='khaledapp://auth?idToken='+encodeURIComponent((cr&&cr.idToken)||'')+'&accessToken='+encodeURIComponent((cr&&cr.accessToken)||'');
+      st.textContent='تم تسجيل الدخول. اضغط الزر التالي للعودة إلى التطبيق.';
+      back.href=link;back.className='btn p';back.textContent='العودة إلى التطبيق';back.style.display='';b.style.display='none';
+      try{location.href=link}catch(e){}
+    }catch(e){st.textContent='تعذر تسجيل الدخول: '+(e.code||e.message);b.disabled=false}
+  };
+}
+if(ALOGIN)initAppLogin();
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){if($('nav').classList.contains('open'))toggleMenu();$('aip').classList.remove('open')}});
 async function countVisit(){try{await updateDoc(doc(db,'khmeta','stats'),{real:increment(1)})}catch(e){console.error(e)}}
 function startLive(u){
@@ -862,6 +884,7 @@ async function checkProfile(u){
 document.addEventListener('contextmenu',function(e){if(e.target.closest&&e.target.closest('.brand,.hero,.acard'))e.preventDefault()});
 document.addEventListener('dragstart',function(e){e.preventDefault()});
 async function authState(u){
+  if(ALOGIN){$('splash').style.display='none';return}
   if(u&&!u.emailVerified){try{await u.reload()}catch(e){}}
   if(u&&u.emailVerified){if(!started){started=true;checkProfile(u)}}
   else{started=false;$('cmp').style.display='none';$('splash').style.display='none';$('auth').style.display='flex'}

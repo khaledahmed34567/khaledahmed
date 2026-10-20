@@ -364,3 +364,6 @@ a.dlb{text-decoration:none}
 .appnote{display:flex;gap:12px;align-items:center;padding:12px 14px;border-radius:16px;border:1px solid rgba(124,92,255,.5);background:rgba(124,92,255,.14);width:100%;color:#fff}
 .appnote b{display:block;font-size:14px}.appnote small{display:block;color:var(--t2);font-size:12px;margin-top:2px;line-height:1.6}.appnote svg{color:#a99bff}
 @media(max-width:520px){.apph{flex-direction:column;text-align:center}.appm{justify-content:center}}
+
+#alogin{position:fixed;inset:0;z-index:500;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center}
+#alogin .btn{min-width:240px}
