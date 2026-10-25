@@ -367,3 +367,15 @@ a.dlb{text-decoration:none}
 
 #alogin{position:fixed;inset:0;z-index:500;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center}
 #alogin .btn{min-width:240px}
+
+/* ===== Vulnerabilities + tools ===== */
+.vstats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.vst{text-align:center;padding:14px 8px;border:1px solid var(--b);border-radius:16px;background:rgba(255,255,255,.045)}.vst b{display:block;font-size:24px;font-family:'KH-Time','IBM Plex Mono',monospace}.vst small{color:var(--t2);font-size:12px}
+.vlist{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+.vcard{display:flex;gap:12px;align-items:center;padding:14px;border:1px solid var(--b);border-right:5px solid #7c5cff;border-radius:18px;background:rgba(255,255,255,.045);transition:transform .3s cubic-bezier(.32,.72,0,1),box-shadow .3s}
+.vcard:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(124,92,255,.2)}.vtx{flex:1;min-width:0}.vtx h3{font-size:15px;line-height:1.5;margin-bottom:4px}
+.vm{font-size:12.5px;color:var(--t2);margin-bottom:6px}.vb{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.vlg{width:46px;height:46px;border-radius:12px;background:#fff;color:#000;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;flex-shrink:0;overflow:hidden}.vlg img{width:100%;height:100%;object-fit:contain;padding:5px}
+.sev,.stc{padding:3px 10px;border-radius:20px;font-size:11.5px;border:1px solid var(--b);background:rgba(255,255,255,.07);color:var(--t2)}
+.vhead{display:flex;gap:14px;align-items:center;margin:8px 0 14px}.vhead h1{font-size:21px;line-height:1.5;margin-bottom:4px}
+.vtl{display:flex;gap:10px;margin-bottom:14px}.vtc{flex:1;padding:12px;border:1px solid var(--b);border-radius:14px;background:rgba(255,255,255,.04)}.vtc small{display:block;color:var(--t3);font-size:11.5px}.vtc b{font-size:14px}
