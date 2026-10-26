@@ -379,3 +379,18 @@ a.dlb{text-decoration:none}
 .sev,.stc{padding:3px 10px;border-radius:20px;font-size:11.5px;border:1px solid var(--b);background:rgba(255,255,255,.07);color:var(--t2)}
 .vhead{display:flex;gap:14px;align-items:center;margin:8px 0 14px}.vhead h1{font-size:21px;line-height:1.5;margin-bottom:4px}
 .vtl{display:flex;gap:10px;margin-bottom:14px}.vtc{flex:1;padding:12px;border:1px solid var(--b);border-radius:14px;background:rgba(255,255,255,.04)}.vtc small{display:block;color:var(--t3);font-size:11.5px}.vtc b{font-size:14px}
+
+/* ===== AI chat ===== */
+.chbar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:10px}.chbar select{background:rgba(255,255,255,.08);border:1px solid var(--b);border-radius:20px;color:#fff;font-family:inherit;font-size:12px;padding:5px 10px}
+.chat{display:flex;flex-direction:column;height:calc(100dvh - 270px);min-height:340px;border:1px solid var(--b);border-radius:20px;background:rgba(255,255,255,.035);overflow:hidden}
+.cmsgs{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:12px}
+.cm{max-width:92%}.cu{align-self:flex-start}.cb2{align-self:flex-end}
+.cmt{padding:10px 13px;border-radius:16px;font-size:14px;line-height:1.9;word-break:break-word}.cu .cmt{background:rgba(124,92,255,.32)}.cb2 .cmt{background:rgba(255,255,255,.07)}
+.chl{margin:2px 0}.chli{position:relative;padding-right:14px}.chli:before{content:"\\2022";position:absolute;right:0;color:#a99bff}.chh2{font-weight:700;margin:8px 0 4px}
+.cmt code{background:rgba(255,255,255,.1);padding:1px 6px;border-radius:6px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;direction:ltr;display:inline-block}
+.chcode{margin:8px 0;border:1px solid var(--b);border-radius:12px;overflow:hidden;background:rgba(0,0,0,.45);direction:ltr}.chcode .chh{display:flex;justify-content:space-between;align-items:center;padding:5px 10px;background:rgba(255,255,255,.07);font-size:11.5px;color:#a99bff}.chcode .chh button{background:none;border:1px solid var(--b);color:#ddd;border-radius:6px;padding:2px 8px;cursor:pointer;font-family:inherit;font-size:11px}
+.chcode pre{padding:10px;overflow-x:auto;font:12.5px/1.7 'IBM Plex Mono',monospace;color:#e6e6e6;margin:0}
+.chsug{display:flex;gap:6px;flex-wrap:wrap}.cimg2{align-self:flex-start;margin:0 12px 6px;padding:3px 10px;border-radius:14px;background:rgba(124,92,255,.3);font-size:11.5px}
+.ccomp{display:flex;gap:8px;padding:10px;border-top:1px solid var(--b);align-items:flex-end}.ccomp textarea{flex:1;max-height:140px;padding:10px 12px;border-radius:14px;border:1px solid var(--b);background:rgba(0,0,0,.4);color:#fff;font-family:inherit;font-size:15px;outline:none;resize:none;min-height:42px}
+@media(max-width:700px){.chat{height:calc(100dvh - 300px)}}
+.hmap{display:flex;gap:6px}.hmap i{flex:1;aspect-ratio:1;border-radius:8px;background:rgba(255,255,255,.07)}.hmap i.on{background:#7c5cff}
