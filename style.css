@@ -394,3 +394,5 @@ a.dlb{text-decoration:none}
 .ccomp{display:flex;gap:8px;padding:10px;border-top:1px solid var(--b);align-items:flex-end}.ccomp textarea{flex:1;max-height:140px;padding:10px 12px;border-radius:14px;border:1px solid var(--b);background:rgba(0,0,0,.4);color:#fff;font-family:inherit;font-size:15px;outline:none;resize:none;min-height:42px}
 @media(max-width:700px){.chat{height:calc(100dvh - 300px)}}
 .hmap{display:flex;gap:6px}.hmap i{flex:1;aspect-ratio:1;border-radius:8px;background:rgba(255,255,255,.07)}.hmap i.on{background:#7c5cff}
+
+.chtt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:15px}.ib2{min-width:42px;padding:8px}

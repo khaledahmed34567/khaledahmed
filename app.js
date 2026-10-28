@@ -1006,6 +1006,15 @@ function mdRender(box,text){
   });
 }
 function speakText(t){if(!window.speechSynthesis||typeof SpeechSynthesisUtterance==='undefined'){toast('الاستماع غير مدعوم هنا');return}speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang='ar-SA';speechSynthesis.speak(u)}
+function chSettings(){
+  var fast=localStorage.getItem('kchfast')!=='0',ctx=localStorage.getItem('kchctx')==='1',m=chMode(),names={gen:'عام',debug:'برمجة',tutor:'مدرّس',writer:'كاتب',brief:'موجز'};
+  sheet('إعدادات الشات',[
+    ['الوضع السريع: '+(fast?'مفعّل':'متوقف'),function(){localStorage.setItem('kchfast',fast?'0':'1');route()}],
+    ['سياق الموقع: '+(ctx?'مفعّل':'متوقف'),function(){localStorage.setItem('kchctx',ctx?'0':'1');route()}],
+    ['الوضع: '+names[m]+' (اضغط للتبديل)',function(){var ks=Object.keys(names);localStorage.setItem('kchmode',ks[(ks.indexOf(m)+1)%ks.length]);route()}],
+    ['مسح هذه المحادثة',function(){var c=chGet();if(c){c.msgs=[];c.title='محادثة جديدة';chSave();route()}}]
+  ]);
+}
 function chHist(){
   var rows=(CHATS||[]).map(function(c){return [c.title+' ('+c.msgs.length+')',function(){CHCUR=c.id;route()}]});
   rows.push(['حذف هذه المحادثة',function(){CHATS=CHATS.filter(function(c){return c.id!==CHCUR});CHCUR=null;chSave();route()}]);
@@ -1021,13 +1030,12 @@ function renderChat(v){
   if(!chGet()){if(CHATS.length)CHCUR=CHATS[0].id;else chNew()}
   var fast=localStorage.getItem('kchfast')!=='0',useCtx=localStorage.getItem('kchctx')==='1',busyNow=false;
   var bar=el('div','chbar');
-  function chip(label,on,fn){var c=el('span','tagc'+(on?' on':''),label);c.onclick=fn;bar.appendChild(c)}
-  chip('محادثة جديدة',false,function(){chNew();route()});
-  chip('السجل',false,chHist);
-  chip('سريع',fast,function(){localStorage.setItem('kchfast',fast?'0':'1');route()});
-  chip('سياق الموقع',useCtx,function(){localStorage.setItem('kchctx',useCtx?'0':'1');route()});
-  var sel=el('select');[['gen','عام'],['debug','برمجة'],['tutor','مدرّس'],['writer','كاتب'],['brief','موجز']].forEach(function(o){var op=el('option',null,o[1]);op.value=o[0];sel.appendChild(op)});
-  sel.value=chMode();sel.onchange=function(){localStorage.setItem('kchmode',sel.value)};bar.appendChild(sel);v.appendChild(bar);
+  var tt=el('div','chtt');tt.appendChild(el('b',null,chGet().title||'محادثة جديدة'));bar.appendChild(tt);
+  function ib(icon,label,fn){var b=el('button','btn ib2');b.innerHTML=ico(icon,18);b.setAttribute('aria-label',label);b.onclick=fn;bar.appendChild(b)}
+  ib('plus','محادثة جديدة',function(){chNew();route()});
+  ib('clock','السجل',chHist);
+  ib('gear','إعدادات الشات',chSettings);
+  v.appendChild(bar);
   var wrap=el('div','chat'),box=el('div','cmsgs');wrap.appendChild(box);
   var comp=el('div','ccomp'),ta=el('textarea');ta.rows=1;ta.placeholder='اكتب رسالتك...';
   var imgb=el('span','cimg2','صورة مرفقة');imgb.style.display='none';
