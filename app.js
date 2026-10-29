@@ -1086,8 +1086,34 @@ function renderChat(v){
   send.onclick=function(){if(busyNow&&CHABORT)CHABORT.abort();else doSend()};
   ta.onkeydown=function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();if(!busyNow)doSend()}};
   ta.oninput=function(){ta.style.height='auto';ta.style.height=Math.min(ta.scrollHeight,140)+'px'};
-  comp.appendChild(att);comp.appendChild(ta);comp.appendChild(send);wrap.appendChild(imgb);wrap.appendChild(comp);wrap.appendChild(fi);v.appendChild(wrap);
+  comp.appendChild(att);if(ISAPP){var mic=el('button','btn');mic.innerHTML=ico('mic',18);mic.onclick=function(){voiceFill(ta)};comp.appendChild(mic)}comp.appendChild(ta);comp.appendChild(send);wrap.appendChild(imgb);wrap.appendChild(comp);wrap.appendChild(fi);v.appendChild(wrap);
   box.scrollTop=box.scrollHeight;
+}
+var BANWATCH=null;
+function banActive(b){return !!b&&(!b.until||b.until>Date.now())}
+function banScreen(b){
+  var o=document.getElementById('ban');if(!o){o=document.createElement('div');o.id='ban';document.body.appendChild(o)}
+  o.innerHTML='';var bx=document.createElement('div');bx.className='banbox';
+  var h=document.createElement('h2');h.textContent='تم حظر حسابك';bx.appendChild(h);
+  var p=document.createElement('p');p.textContent=b.reason?('السبب: '+b.reason):'تم حظر حسابك بسبب مخالفة شروط الاستخدام.';bx.appendChild(p);
+  if(b.until){var q=document.createElement('p');q.textContent='ينتهي الحظر: '+new Date(b.until).toLocaleString('ar-EG');bx.appendChild(q)}
+  var btn=document.createElement('button');btn.className='btn p';btn.textContent='تسجيل الخروج';btn.onclick=function(){signOut(auth)};bx.appendChild(btn);
+  o.appendChild(bx);o.style.display='flex';
+  ['splash','auth','cmp'].forEach(function(i){var e=document.getElementById(i);if(e)e.style.display='none'});
+}
+async function banCheck(u){
+  try{var s=await getDoc(doc(db,'khbans',u.uid));if(s.exists()&&banActive(s.data())){banScreen(s.data());return true}}catch(e){}
+  return false;
+}
+function banWatch(u){
+  try{
+    if(BANWATCH)BANWATCH();
+    BANWATCH=onSnapshot(doc(db,'khbans',u.uid),function(s){
+      var o=document.getElementById('ban');
+      if(s.exists()&&banActive(s.data()))banScreen(s.data());
+      else if(o&&o.style.display!=='none'){o.style.display='none';location.reload()}
+    },function(){});
+  }catch(e){}
 }
 function renderAuthors(v){
   v.appendChild(el('h2','sec','الكتّاب'));var g=el('div','grid');
@@ -1173,7 +1199,7 @@ document.addEventListener('dragstart',function(e){e.preventDefault()});
 async function authState(u){
   if(ALOGIN){$('splash').style.display='none';return}
   if(u&&!u.emailVerified){try{await u.reload()}catch(e){}}
-  if(u&&u.emailVerified){if(!started){started=true;checkProfile(u)}}
+  if(u&&u.emailVerified){if(!started){started=true;if(await banCheck(u)){banWatch(u);return}banWatch(u);checkProfile(u)}}
   else{started=false;$('cmp').style.display='none';$('splash').style.display='none';$('auth').style.display='flex'}
 }
 onAuthStateChanged(auth,authState);

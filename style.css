@@ -396,3 +396,6 @@ a.dlb{text-decoration:none}
 .hmap{display:flex;gap:6px}.hmap i{flex:1;aspect-ratio:1;border-radius:8px;background:rgba(255,255,255,.07)}.hmap i.on{background:#7c5cff}
 
 .chtt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:15px}.ib2{min-width:42px;padding:8px}
+
+#ban{position:fixed;inset:0;z-index:900;background:#000;display:none;align-items:center;justify-content:center;padding:24px}
+.banbox{width:min(380px,100%);padding:24px;border-radius:22px;border:1px solid rgba(250,77,86,.6);background:rgba(250,77,86,.1);text-align:center}.banbox h2{color:#ff6961;margin-bottom:10px}.banbox p{line-height:1.9;color:#ddd;margin-bottom:10px}
